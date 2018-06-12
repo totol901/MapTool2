@@ -2,6 +2,7 @@
 #include "MapScene.h"
 #include "InputClass.h"
 #include "ModelClass.h"
+#include "Mesh.h"
 
 MapScene::MapScene()
 {
@@ -13,32 +14,33 @@ MapScene::~MapScene()
 
 bool MapScene::Initialize(HINSTANCE hinstance, HWND hwnd)
 {
-	// Ä«¸Þ¶ó °´Ã¼¸¦ »ý¼ºÇÕ´Ï´Ù.
+	// Ä«ï¿½Þ¶ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
 	m_Camera = new CameraClass();
 	if (!m_Camera)
 	{
 		return false;
 	}
-
-	// 2D »ç¿ëÀÚ ÀÎÅÍÆäÀÌ½º ·»´õ¸µÀ» À§ÇØ Ä«¸Þ¶ó·Î ±âº» ºä Çà·ÄÀ» ÃÊ±âÈ­ÇÕ´Ï´Ù.
+	mMesh = CD3dClass::GetInstance()->GetFBXLoader()->LoadFBX("./resource/model/model.fbx");
+	mMesh->Initialize(CD3dClass::GetInstance()->GetDevice());
+	// 2D ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ä«ï¿½Þ¶ï¿½ï¿½ ï¿½âº» ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­ï¿½Õ´Ï´ï¿½.
 	D3DXMATRIX baseViewMatrix;
 	m_Camera->SetPosition(0.0f, 0.0f, -1.0f);
 	m_Camera->Render();
 	m_Camera->GetViewMatrix(baseViewMatrix);
 	m_Camera->SetBaseMat(baseViewMatrix);
 
-	// Ä«¸Þ¶óÀÇ ÃÊ±â À§Ä¡¸¦ ¼³Á¤ÇÕ´Ï´Ù.
+	// Ä«ï¿½Þ¶ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
 	m_Camera->SetPosition(50.0f, 10.0f, -7.0f);
 
-	// ÁöÇü °´Ã¼¸¦ »ý¼ºÇÕ´Ï´Ù.
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
 	m_Terrain = new TerrainClass;
 	if (!m_Terrain)
 	{
 		return false;
 	}
 
-	// ÁöÇü °´Ã¼¸¦ ÃÊ±âÈ­ ÇÕ´Ï´Ù.
-	
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½Ê±ï¿½È­ ï¿½Õ´Ï´ï¿½.
+
 	bool result = m_Terrain->Initialize(CD3dClass::GetInstance()->GetDevice(),
 		"../MapTool2/data/heightmap01.bmp", L"../MapTool2/texture/dirt01.dds",
 		"../MapTool2/data/colorm01.bmp");
@@ -48,14 +50,14 @@ bool MapScene::Initialize(HINSTANCE hinstance, HWND hwnd)
 		return false;
 	}
 
-	// »ö»ó ½¦ÀÌ´õ °´Ã¼¸¦ »ý¼ºÇÕ´Ï´Ù.
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì´ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
 	m_ColorShader = new ColorShaderClass;
 	if (!m_ColorShader)
 	{
 		return false;
 	}
 
-	// »ö»ó ½¦ÀÌ´õ °´Ã¼¸¦ ÃÊ±âÈ­ÇÕ´Ï´Ù.
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì´ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½Ê±ï¿½È­ï¿½Õ´Ï´ï¿½.
 	result = m_ColorShader->Initialize(CD3dClass::GetInstance()->GetDevice(), hwnd);
 	if (!result)
 	{
@@ -63,14 +65,14 @@ bool MapScene::Initialize(HINSTANCE hinstance, HWND hwnd)
 		return false;
 	}
 
-	// Å¸ÀÌ¸Ó °´Ã¼¸¦ »ý¼ºÇÕ´Ï´Ù.
+	// Å¸ï¿½Ì¸ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
 	m_Timer = new TimerClass;
 	if (!m_Timer)
 	{
 		return false;
 	}
 
-	// Å¸ÀÌ¸Ó °´Ã¼¸¦ ÃÊ±âÈ­ ÇÕ´Ï´Ù.
+	// Å¸ï¿½Ì¸ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½Ê±ï¿½È­ ï¿½Õ´Ï´ï¿½.
 	result = m_Timer->Initialize();
 	if (!result)
 	{
@@ -78,45 +80,45 @@ bool MapScene::Initialize(HINSTANCE hinstance, HWND hwnd)
 		return false;
 	}
 
-	// À§Ä¡ °³Ã¼¸¦ »ý¼ºÇÕ´Ï´Ù.
+	// ï¿½ï¿½Ä¡ ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
 	m_Position = new PositionClass;
 	if (!m_Position)
 	{
 		return false;
 	}
 
-	// ºä¾îÀÇ ÃÊ±â À§Ä¡¸¦ ÃÊ±â Ä«¸Þ¶ó À§Ä¡¿Í µ¿ÀÏÇÏ°Ô ¼³Á¤ÇÕ´Ï´Ù.
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½Ê±ï¿½ Ä«ï¿½Þ¶ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
 	m_Position->SetPosition(50.0f, 10.0f, -7.0f);
 	m_Position->SetRotation(45.0f, 0.0f, 0.0f);
 	m_Camera->SetRotation(m_Position->GetRotation());
-	// fps °´Ã¼¸¦ »ý¼ºÇÕ´Ï´Ù.
+	// fps ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
 	m_Fps = new FpsClass;
 	if (!m_Fps)
 	{
 		return false;
 	}
 
-	// fps °´Ã¼¸¦ ÃÊ±âÈ­ÇÕ´Ï´Ù.
+	// fps ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½Ê±ï¿½È­ï¿½Õ´Ï´ï¿½.
 	m_Fps->Initialize();
 
-	// cpu °´Ã¼¸¦ »ý¼ºÇÕ´Ï´Ù.
+	// cpu ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
 	m_Cpu = new CpuClass;
 	if (!m_Cpu)
 	{
 		return false;
 	}
 
-	// cpu °´Ã¼¸¦ ÃÊ±âÈ­ ÇÕ´Ï´Ù.
+	// cpu ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½Ê±ï¿½È­ ï¿½Õ´Ï´ï¿½.
 	m_Cpu->Initialize();
 
-	// ÆùÆ® ¼ÎÀÌ´õ °´Ã¼¸¦ »ý¼ºÇÕ´Ï´Ù.
+	// ï¿½ï¿½Æ® ï¿½ï¿½ï¿½Ì´ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
 	m_FontShader = new FontShaderClass;
 	if (!m_FontShader)
 	{
 		return false;
 	}
 
-	// ÆùÆ® ¼ÎÀÌ´õ °´Ã¼¸¦ ÃÊ±âÈ­ÇÕ´Ï´Ù.
+	// ï¿½ï¿½Æ® ï¿½ï¿½ï¿½Ì´ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½Ê±ï¿½È­ï¿½Õ´Ï´ï¿½.
 	result = m_FontShader->Initialize(CD3dClass::GetInstance()->GetDevice(), hwnd);
 	if (!result)
 	{
@@ -124,18 +126,18 @@ bool MapScene::Initialize(HINSTANCE hinstance, HWND hwnd)
 		return false;
 	}
 
-	// ÅØ½ºÆ® °´Ã¼¸¦ »ý¼ºÇÕ´Ï´Ù.
+	// ï¿½Ø½ï¿½Æ® ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
 	m_Text = new TextClass;
 	if (!m_Text)
 	{
 		return false;
 	}
 
-	// ÅØ½ºÆ® °´Ã¼¸¦ ÃÊ±âÈ­ÇÕ´Ï´Ù.
+	// ï¿½Ø½ï¿½Æ® ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½Ê±ï¿½È­ï¿½Õ´Ï´ï¿½.
 	CRect rect;
 	GetWindowRect(CD3dClass::GetInstance()->GetMainView()->m_hWnd, &rect);
-	result = m_Text->Initialize(CD3dClass::GetInstance()->GetDevice(), 
-		CD3dClass::GetInstance()->GetDeviceContext(), hwnd, 
+	result = m_Text->Initialize(CD3dClass::GetInstance()->GetDevice(),
+		CD3dClass::GetInstance()->GetDeviceContext(), hwnd,
 		rect.Width(), rect.Height(), baseViewMatrix);
 	if (!result)
 	{
@@ -143,13 +145,13 @@ bool MapScene::Initialize(HINSTANCE hinstance, HWND hwnd)
 		return false;
 	}
 
-	// ºñµð¿À Ä«µå Á¤º¸¸¦ °¡Á®¿É´Ï´Ù.
+	// ï¿½ï¿½ï¿½ï¿½ Ä«ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½É´Ï´ï¿½.
 	char videoCard[128] = { 0, };
 	int videoMemory = 0;
 	CD3dClass::GetInstance()->GetVideoCardInfo(videoCard, videoMemory);
 
-	// ÅØ½ºÆ® °´Ã¼¿¡ ºñµð¿À Ä«µå Á¤º¸¸¦ ¼³Á¤ÇÕ´Ï´Ù.
-	result = m_Text->SetVideoCardInfo(videoCard, videoMemory, 
+	// ï¿½Ø½ï¿½Æ® ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ä«ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
+	result = m_Text->SetVideoCardInfo(videoCard, videoMemory,
 		CD3dClass::GetInstance()->GetDeviceContext());
 	if (!result)
 	{
@@ -157,7 +159,7 @@ bool MapScene::Initialize(HINSTANCE hinstance, HWND hwnd)
 		return false;
 	}
 
-	//ÁöÇü ¼ÎÀÌ´õ ÃÊ±âÈ­
+	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì´ï¿½ ï¿½Ê±ï¿½È­
 	m_TerrainShader = new  TerrainShaderClass;
 	if (!m_TerrainShader)
 	{
@@ -330,7 +332,7 @@ void MapScene::Shutdown()
 		SAFE_DELETE(m_TerrainShader);
 	}
 
-	// ÅØ½ºÆ® °´Ã¼¸¦ ÇØÁ¦ÇÕ´Ï´Ù.
+	// ï¿½Ø½ï¿½Æ® ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
 	if (m_Text)
 	{
 		m_Text->Shutdown();
@@ -338,7 +340,7 @@ void MapScene::Shutdown()
 		m_Text = 0;
 	}
 
-	// ÆùÆ® ½¦ÀÌ´õ °´Ã¼¸¦ ÇØÁ¦ÇÕ´Ï´Ù..
+	// ï¿½ï¿½Æ® ï¿½ï¿½ï¿½Ì´ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½..
 	if (m_FontShader)
 	{
 		m_FontShader->Shutdown();
@@ -346,7 +348,7 @@ void MapScene::Shutdown()
 		m_FontShader = 0;
 	}
 
-	// cpu °´Ã¼¸¦ ÇØÁ¦ÇÕ´Ï´Ù.
+	// cpu ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
 	if (m_Cpu)
 	{
 		m_Cpu->Shutdown();
@@ -354,28 +356,28 @@ void MapScene::Shutdown()
 		m_Cpu = 0;
 	}
 
-	// fps °´Ã¼¸¦ ÇØÁ¦ÇÕ´Ï´Ù.
+	// fps ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
 	if (m_Fps)
 	{
 		delete m_Fps;
 		m_Fps = 0;
 	}
 
-	// À§Ä¡ °´Ã¼¸¦ ÇØÁ¦ÇÕ´Ï´Ù.
+	// ï¿½ï¿½Ä¡ ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
 	if (m_Position)
 	{
 		delete m_Position;
 		m_Position = 0;
 	}
 
-	// Å¸ÀÌ¸Ó °´Ã¼¸¦ ÇØÁ¦ÇÕ´Ï´Ù.
+	// Å¸ï¿½Ì¸ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
 	if (m_Timer)
 	{
 		delete m_Timer;
 		m_Timer = 0;
 	}
 
-	// »ö»ó ¼ÎÀÌ´õ °´Ã¼¸¦ ÇØÁ¦ÇÕ´Ï´Ù.
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì´ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
 	if (m_ColorShader)
 	{
 		m_ColorShader->Shutdown();
@@ -383,7 +385,7 @@ void MapScene::Shutdown()
 		m_ColorShader = 0;
 	}
 
-	// ÁöÇü °´Ã¼¸¦ ÇØÁ¦ÇÕ´Ï´Ù.
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
 	if (m_Terrain)
 	{
 		m_Terrain->Shutdown();
@@ -391,7 +393,7 @@ void MapScene::Shutdown()
 		m_Terrain = 0;
 	}
 
-	// Ä«¸Þ¶ó °´Ã¼¸¦ ÇØÁ¦ÇÕ´Ï´Ù.
+	// Ä«ï¿½Þ¶ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
 	if (m_Camera)
 	{
 		delete m_Camera;
@@ -407,32 +409,32 @@ bool MapScene::Frame()
 
 	InputClass::GetInstance()->Frame();
 
-	// »ç¿ëÀÚ°¡ ESC¸¦ ´­·¶À» ¶§ ÀÀ¿ë ÇÁ·Î±×·¥À» Á¾·á ÇÒ °ÍÀÎÁö È®ÀÎÇÕ´Ï´Ù.
+	// ï¿½ï¿½ï¿½ï¿½Ú°ï¿½ ESCï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Î±×·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
 	if (InputClass::GetInstance()->IsEscapePressed() == true)
 	{
 		return false;
 	}
-	
-	// ½Ã½ºÅÛ Åë°è¸¦ ¾÷µ¥ÀÌÆ® ÇÕ´Ï´Ù.
+
+	// ï¿½Ã½ï¿½ï¿½ï¿½ ï¿½ï¿½è¸¦ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½Õ´Ï´ï¿½.
 	m_Timer->Frame();
 	m_Fps->Frame();
 	m_Cpu->Frame();
 
-	// ÅØ½ºÆ® °³Ã¼¿¡¼­ FPS °ªÀ» ¾÷µ¥ÀÌÆ® ÇÕ´Ï´Ù.
+	// ï¿½Ø½ï¿½Æ® ï¿½ï¿½Ã¼ï¿½ï¿½ï¿½ï¿½ FPS ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½Õ´Ï´ï¿½.
 	bool result = m_Text->SetFps(m_Fps->GetFps(), CD3dClass::GetInstance()->GetDeviceContext());
 	if (!result)
 	{
 		return false;
 	}
 
-	// ÅØ½ºÆ® °³Ã¼ÀÇ CPU »ç¿ë°ªÀ» ¾÷µ¥ÀÌÆ® ÇÕ´Ï´Ù.
+	// ï¿½Ø½ï¿½Æ® ï¿½ï¿½Ã¼ï¿½ï¿½ CPU ï¿½ï¿½ë°ªï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½Õ´Ï´ï¿½.
 	result = m_Text->SetCpu(m_Cpu->GetCpuPercentage(), CD3dClass::GetInstance()->GetDeviceContext());
 	if (!result)
 	{
 		return false;
 	}
 
-	// ÇÁ·¹ÀÓ ÀÔ·Â Ã³¸®¸¦ ¼öÇàÇÕ´Ï´Ù.
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô·ï¿½ Ã³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
 	result = HandleInput(m_Timer->GetTime());
 	if (!result)
 	{
@@ -453,13 +455,13 @@ bool MapScene::Frame()
 	// Do the sky plane frame processing.
 	m_SkyPlane->Frame();
 
-
-	// ±×·¡ÇÈÀ» ·»´õ¸µ ÇÕ´Ï´Ù.
+	// ï¿½×·ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Õ´Ï´ï¿½.
 	result = RenderGraphics();
 	if (!result)
 	{
 		return false;
 	}
+	mMesh->Update(m_Timer->GetTime());
 
 	return result;
 }
@@ -468,7 +470,7 @@ bool MapScene::InputFrame()
 {
 	m_Timer->Frame();
 
-	// ÇÁ·¹ÀÓ ÀÔ·Â Ã³¸®¸¦ ¼öÇàÇÕ´Ï´Ù.
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô·ï¿½ Ã³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
 	bool result = HandleInput(m_Timer->GetTime());
 	if (!result)
 	{
@@ -478,15 +480,13 @@ bool MapScene::InputFrame()
 	return true;
 }
 
-
-
 bool MapScene::HandleInput(float frameTime)
 {
 	bool keyDown, result;
 	float posX, posY, posZ, rotX, rotY, rotZ;
 
 	// Set the frame time for calculating the updated position.
-	m_Position->SetFrameTime(frameTime);	
+	m_Position->SetFrameTime(frameTime);
 
 	// Handle the input.
 	keyDown = InputClass::GetInstance()->IsLeftPressed();
@@ -518,7 +518,7 @@ bool MapScene::HandleInput(float frameTime)
 	m_Position->GetRotation(rotX, rotY, rotZ);
 
 	// Set the position of the camera.
-	//Ä«¸Å¶ó ÈÙ¿¡ µû¶ó Ä«¸Å¶ó yÃà º¯È¯
+	//Ä«ï¿½Å¶ï¿½ ï¿½Ù¿ï¿½ ï¿½ï¿½ï¿½ï¿½ Ä«ï¿½Å¶ï¿½ yï¿½ï¿½ ï¿½ï¿½È¯
 	if (InputClass::GetInstance()->isMouseWheelDown())
 	{
 		m_Position->SetPosition(posX, posY + 0.25, posZ);
@@ -564,19 +564,19 @@ bool MapScene::RenderGraphics()
 	D3DXVECTOR3 cameraPosition;
 	bool result;
 
-	// Ä«¸Þ¶óÀÇ À§Ä¡¿¡ µû¶ó ºä Çà·ÄÀ» »ý¼ºÇÕ´Ï´Ù.
+	// Ä«ï¿½Þ¶ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
 	m_Camera->Render();
 
-	// Ä«¸Þ¶ó ¹× Direct3D °´Ã¼¿¡¼­ ¿ùµå, ºä, Åõ¿µ ¹× ortho Çà·ÄÀ» °¡Á®¿É´Ï´Ù.
+	// Ä«ï¿½Þ¶ï¿½ ï¿½ï¿½ Direct3D ï¿½ï¿½Ã¼ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ortho ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½É´Ï´ï¿½.
 	D3DXMatrixIdentity(&m_worldMatrix);
 	m_Camera->GetViewMatrix(m_viewMatrix);
 
-	// Setup the projection matrix.  
+	// Setup the projection matrix.
 	CRect rect;
 	GetWindowRect(CD3dClass::GetInstance()->GetMainView()->m_hWnd, &rect);
 	float fieldOfView = (float)D3DX_PI / 4.0f;
 	float screenAspect = (float)rect.Width() / (float)rect.Height();
-	// Create the projection matrix for 3D rendering.  
+	// Create the projection matrix for 3D rendering.
 	D3DXMatrixPerspectiveFovLH(&m_projectionMatrix, fieldOfView, screenAspect, SCREEN_NEAR, SCREEN_DEPTH);
 
 	D3DXMatrixOrthoLH(&m_orthoMatrix, (float)800, (float)600, SCREEN_NEAR, SCREEN_DEPTH);
@@ -613,13 +613,13 @@ bool MapScene::RenderGraphics()
 	// Reset the world matrix.
 	D3DXMatrixIdentity(&m_worldMatrix);
 
-	// ¾ËÆÄºí·£µù ¿Â
+	// ï¿½ï¿½ï¿½Äºï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 	CD3dClass::GetInstance()->TurnOffAlphaBlending();
 
 	// Construct the frustum.
 	m_Frustum->ConstructFrustum(SCREEN_DEPTH, m_projectionMatrix, m_viewMatrix);
 	// Set the terrain shader parameters that it will use for rendering.
-	result = m_TerrainShader->SetShaderParameters(CD3dClass::GetInstance()->GetDeviceContext(), m_worldMatrix, 
+	result = m_TerrainShader->SetShaderParameters(CD3dClass::GetInstance()->GetDeviceContext(), m_worldMatrix,
 		m_viewMatrix, m_projectionMatrix, m_Light->GetAmbientColor(),
 		m_Light->GetDiffuseColor(), m_Light->GetDirection(), m_Terrain->GetTexture());
 	if (!result)
@@ -628,6 +628,10 @@ bool MapScene::RenderGraphics()
 	}
 	// Render the terrain using the quad tree and terrain shader.
 	m_QuadTree->Render(m_Frustum, CD3dClass::GetInstance()->GetDeviceContext(), m_TerrainShader);
+
+	D3DXMATRIX m;
+	m_Camera->GetViewMatrix(m);
+	mMesh->Draw(CD3dClass::GetInstance()->GetDeviceContext(), m);
 	// Set the number of rendered terrain triangles since some were culled.
 	result = m_Text->SetRenderCount(m_QuadTree->GetDrawCount(), CD3dClass::GetInstance()->GetDeviceContext());
 	if (!result)
@@ -635,16 +639,16 @@ bool MapScene::RenderGraphics()
 		return false;
 	}
 
-	// ¸ðµç 2D ·»´õ¸µÀ» ½ÃÀÛÇÏ·Á¸é Z ¹öÆÛ¸¦ ²ü´Ï´Ù.
+	// ï¿½ï¿½ï¿½ 2D ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï·ï¿½ï¿½ï¿½ Z ï¿½ï¿½ï¿½Û¸ï¿½ ï¿½ï¿½ï¿½Ï´ï¿½.
 	CD3dClass::GetInstance()->TurnZBufferOff();
 
 	// Turn back face culling back on.
 	CD3dClass::GetInstance()->TurnOnCulling();
 
-	// ÅØ½ºÆ®¸¦ ·»´õ¸µÇÏ±â Àü¿¡ ¾ËÆÄ ºí·»µùÀ» ÄÕ´Ï´Ù.
+	// ï¿½Ø½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Õ´Ï´ï¿½.
 	CD3dClass::GetInstance()->TurnOnAlphaBlending();
 
-	// ÅØ½ºÆ® »ç¿ëÀÚ ÀÎÅÍÆäÀÌ½º ¿ä¼Ò¸¦ ·»´õ¸µ ÇÕ´Ï´Ù.
+	// ï¿½Ø½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì½ï¿½ ï¿½ï¿½Ò¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Õ´Ï´ï¿½.
 	result = m_Text->Render(CD3dClass::GetInstance()->GetDeviceContext(),
 		m_FontShader, m_worldMatrix, m_orthoMatrix);
 	if (!result)
@@ -652,7 +656,7 @@ bool MapScene::RenderGraphics()
 		return false;
 	}
 
-	// ·»´õ¸µ µÈ Àå¸éÀ» È­¸é¿¡ Ç¥½ÃÇÕ´Ï´Ù.
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ È­ï¿½é¿¡ Ç¥ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
 	CD3dClass::GetInstance()->TurnZBufferOn();
 
 	return true;

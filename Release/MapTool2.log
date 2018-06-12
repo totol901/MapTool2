@@ -1,0 +1,219 @@
+﻿  stdafx.cpp
+stdafx.cpp : warning C4819: The file contains a character that cannot be represented in the current code page (949). Save the file in Unicode format to prevent data loss
+c:\users\koviuser\desktop\maptool2\stdafx.h : warning C4819: The file contains a character that cannot be represented in the current code page (949). Save the file in Unicode format to prevent data loss
+C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\dxgitype.h(12): warning C4005: 'DXGI_STATUS_OCCLUDED': macro redefinition
+  C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50092): note: see previous definition of 'DXGI_STATUS_OCCLUDED'
+C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\dxgitype.h(13): warning C4005: 'DXGI_STATUS_CLIPPED': macro redefinition
+  C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50101): note: see previous definition of 'DXGI_STATUS_CLIPPED'
+C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\dxgitype.h(14): warning C4005: 'DXGI_STATUS_NO_REDIRECTION': macro redefinition
+  C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50110): note: see previous definition of 'DXGI_STATUS_NO_REDIRECTION'
+C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\dxgitype.h(15): warning C4005: 'DXGI_STATUS_NO_DESKTOP_ACCESS': macro redefinition
+  C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50119): note: see previous definition of 'DXGI_STATUS_NO_DESKTOP_ACCESS'
+C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\dxgitype.h(16): warning C4005: 'DXGI_STATUS_GRAPHICS_VIDPN_SOURCE_IN_USE': macro redefinition
+  C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50128): note: see previous definition of 'DXGI_STATUS_GRAPHICS_VIDPN_SOURCE_IN_USE'
+C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\dxgitype.h(17): warning C4005: 'DXGI_STATUS_MODE_CHANGED': macro redefinition
+  C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50137): note: see previous definition of 'DXGI_STATUS_MODE_CHANGED'
+C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\dxgitype.h(18): warning C4005: 'DXGI_STATUS_MODE_CHANGE_IN_PROGRESS': macro redefinition
+  C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50146): note: see previous definition of 'DXGI_STATUS_MODE_CHANGE_IN_PROGRESS'
+C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\dxgitype.h(21): warning C4005: 'DXGI_ERROR_INVALID_CALL': macro redefinition
+  C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50161): note: see previous definition of 'DXGI_ERROR_INVALID_CALL'
+C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\dxgitype.h(22): warning C4005: 'DXGI_ERROR_NOT_FOUND': macro redefinition
+  C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50170): note: see previous definition of 'DXGI_ERROR_NOT_FOUND'
+C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\dxgitype.h(23): warning C4005: 'DXGI_ERROR_MORE_DATA': macro redefinition
+  C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50179): note: see previous definition of 'DXGI_ERROR_MORE_DATA'
+C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\dxgitype.h(24): warning C4005: 'DXGI_ERROR_UNSUPPORTED': macro redefinition
+  C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50188): note: see previous definition of 'DXGI_ERROR_UNSUPPORTED'
+C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\dxgitype.h(25): warning C4005: 'DXGI_ERROR_DEVICE_REMOVED': macro redefinition
+  C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50197): note: see previous definition of 'DXGI_ERROR_DEVICE_REMOVED'
+C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\dxgitype.h(26): warning C4005: 'DXGI_ERROR_DEVICE_HUNG': macro redefinition
+  C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50206): note: see previous definition of 'DXGI_ERROR_DEVICE_HUNG'
+C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\dxgitype.h(27): warning C4005: 'DXGI_ERROR_DEVICE_RESET': macro redefinition
+  C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50216): note: see previous definition of 'DXGI_ERROR_DEVICE_RESET'
+C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\dxgitype.h(28): warning C4005: 'DXGI_ERROR_WAS_STILL_DRAWING': macro redefinition
+  C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50225): note: see previous definition of 'DXGI_ERROR_WAS_STILL_DRAWING'
+C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\dxgitype.h(29): warning C4005: 'DXGI_ERROR_FRAME_STATISTICS_DISJOINT': macro redefinition
+  C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50235): note: see previous definition of 'DXGI_ERROR_FRAME_STATISTICS_DISJOINT'
+C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\dxgitype.h(30): warning C4005: 'DXGI_ERROR_GRAPHICS_VIDPN_SOURCE_IN_USE': macro redefinition
+  C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50244): note: see previous definition of 'DXGI_ERROR_GRAPHICS_VIDPN_SOURCE_IN_USE'
+C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\dxgitype.h(31): warning C4005: 'DXGI_ERROR_DRIVER_INTERNAL_ERROR': macro redefinition
+  C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50254): note: see previous definition of 'DXGI_ERROR_DRIVER_INTERNAL_ERROR'
+C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\dxgitype.h(32): warning C4005: 'DXGI_ERROR_NONEXCLUSIVE': macro redefinition
+  C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50263): note: see previous definition of 'DXGI_ERROR_NONEXCLUSIVE'
+C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\dxgitype.h(33): warning C4005: 'DXGI_ERROR_NOT_CURRENTLY_AVAILABLE': macro redefinition
+  C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50272): note: see previous definition of 'DXGI_ERROR_NOT_CURRENTLY_AVAILABLE'
+C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\dxgitype.h(34): warning C4005: 'DXGI_ERROR_REMOTE_CLIENT_DISCONNECTED': macro redefinition
+  C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50282): note: see previous definition of 'DXGI_ERROR_REMOTE_CLIENT_DISCONNECTED'
+C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\dxgitype.h(35): warning C4005: 'DXGI_ERROR_REMOTE_OUTOFMEMORY': macro redefinition
+  C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50291): note: see previous definition of 'DXGI_ERROR_REMOTE_OUTOFMEMORY'
+C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\D2DErr.h(59): warning C4005: 'D2DERR_WRONG_STATE': macro redefinition
+  C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50511): note: see previous definition of 'D2DERR_WRONG_STATE'
+C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\D2DErr.h(64): warning C4005: 'D2DERR_NOT_INITIALIZED': macro redefinition
+  C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50520): note: see previous definition of 'D2DERR_NOT_INITIALIZED'
+C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\D2DErr.h(69): warning C4005: 'D2DERR_UNSUPPORTED_OPERATION': macro redefinition
+  C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50529): note: see previous definition of 'D2DERR_UNSUPPORTED_OPERATION'
+C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\D2DErr.h(74): warning C4005: 'D2DERR_SCANNER_FAILED': macro redefinition
+  C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50538): note: see previous definition of 'D2DERR_SCANNER_FAILED'
+C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\D2DErr.h(79): warning C4005: 'D2DERR_SCREEN_ACCESS_DENIED': macro redefinition
+  C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50547): note: see previous definition of 'D2DERR_SCREEN_ACCESS_DENIED'
+C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\D2DErr.h(84): warning C4005: 'D2DERR_DISPLAY_STATE_INVALID': macro redefinition
+  C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50556): note: see previous definition of 'D2DERR_DISPLAY_STATE_INVALID'
+C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\D2DErr.h(89): warning C4005: 'D2DERR_ZERO_VECTOR': macro redefinition
+  C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50565): note: see previous definition of 'D2DERR_ZERO_VECTOR'
+C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\D2DErr.h(97): warning C4005: 'D2DERR_INTERNAL_ERROR': macro redefinition
+  C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50574): note: see previous definition of 'D2DERR_INTERNAL_ERROR'
+C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\D2DErr.h(103): warning C4005: 'D2DERR_DISPLAY_FORMAT_NOT_SUPPORTED': macro redefinition
+  C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50583): note: see previous definition of 'D2DERR_DISPLAY_FORMAT_NOT_SUPPORTED'
+C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\D2DErr.h(108): warning C4005: 'D2DERR_INVALID_CALL': macro redefinition
+  C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50592): note: see previous definition of 'D2DERR_INVALID_CALL'
+C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\D2DErr.h(113): warning C4005: 'D2DERR_NO_HARDWARE_DEVICE': macro redefinition
+  C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50601): note: see previous definition of 'D2DERR_NO_HARDWARE_DEVICE'
+C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\D2DErr.h(119): warning C4005: 'D2DERR_RECREATE_TARGET': macro redefinition
+  C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50610): note: see previous definition of 'D2DERR_RECREATE_TARGET'
+C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\D2DErr.h(124): warning C4005: 'D2DERR_TOO_MANY_SHADER_ELEMENTS': macro redefinition
+  C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50619): note: see previous definition of 'D2DERR_TOO_MANY_SHADER_ELEMENTS'
+C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\D2DErr.h(129): warning C4005: 'D2DERR_SHADER_COMPILE_FAILED': macro redefinition
+  C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50628): note: see previous definition of 'D2DERR_SHADER_COMPILE_FAILED'
+C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\D2DErr.h(134): warning C4005: 'D2DERR_MAX_TEXTURE_SIZE_EXCEEDED': macro redefinition
+  C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50637): note: see previous definition of 'D2DERR_MAX_TEXTURE_SIZE_EXCEEDED'
+C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\D2DErr.h(139): warning C4005: 'D2DERR_UNSUPPORTED_VERSION': macro redefinition
+  C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50646): note: see previous definition of 'D2DERR_UNSUPPORTED_VERSION'
+C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\D2DErr.h(144): warning C4005: 'D2DERR_BAD_NUMBER': macro redefinition
+  C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50655): note: see previous definition of 'D2DERR_BAD_NUMBER'
+C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\D2DErr.h(149): warning C4005: 'D2DERR_WRONG_FACTORY': macro redefinition
+  C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50664): note: see previous definition of 'D2DERR_WRONG_FACTORY'
+C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\D2DErr.h(154): warning C4005: 'D2DERR_LAYER_ALREADY_IN_USE': macro redefinition
+  C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50673): note: see previous definition of 'D2DERR_LAYER_ALREADY_IN_USE'
+C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\D2DErr.h(159): warning C4005: 'D2DERR_POP_CALL_DID_NOT_MATCH_PUSH': macro redefinition
+  C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50682): note: see previous definition of 'D2DERR_POP_CALL_DID_NOT_MATCH_PUSH'
+C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\D2DErr.h(164): warning C4005: 'D2DERR_WRONG_RESOURCE_DOMAIN': macro redefinition
+  C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50691): note: see previous definition of 'D2DERR_WRONG_RESOURCE_DOMAIN'
+C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\D2DErr.h(169): warning C4005: 'D2DERR_PUSH_POP_UNBALANCED': macro redefinition
+  C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50700): note: see previous definition of 'D2DERR_PUSH_POP_UNBALANCED'
+C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\D2DErr.h(174): warning C4005: 'D2DERR_RENDER_TARGET_HAS_LAYER_OR_CLIPRECT': macro redefinition
+  C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50709): note: see previous definition of 'D2DERR_RENDER_TARGET_HAS_LAYER_OR_CLIPRECT'
+C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\D2DErr.h(179): warning C4005: 'D2DERR_INCOMPATIBLE_BRUSH_TYPES': macro redefinition
+  C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50718): note: see previous definition of 'D2DERR_INCOMPATIBLE_BRUSH_TYPES'
+C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\D2DErr.h(184): warning C4005: 'D2DERR_WIN32_ERROR': macro redefinition
+  C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50727): note: see previous definition of 'D2DERR_WIN32_ERROR'
+C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\D2DErr.h(189): warning C4005: 'D2DERR_TARGET_NOT_GDI_COMPATIBLE': macro redefinition
+  C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50736): note: see previous definition of 'D2DERR_TARGET_NOT_GDI_COMPATIBLE'
+C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\D2DErr.h(194): warning C4005: 'D2DERR_TEXT_EFFECT_IS_WRONG_TYPE': macro redefinition
+  C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50745): note: see previous definition of 'D2DERR_TEXT_EFFECT_IS_WRONG_TYPE'
+C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\D2DErr.h(201): warning C4005: 'D2DERR_TEXT_RENDERER_NOT_RELEASED': macro redefinition
+  C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50754): note: see previous definition of 'D2DERR_TEXT_RENDERER_NOT_RELEASED'
+C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\D2DErr.h(206): warning C4005: 'D2DERR_EXCEEDS_MAX_BITMAP_SIZE': macro redefinition
+  C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50763): note: see previous definition of 'D2DERR_EXCEEDS_MAX_BITMAP_SIZE'
+c:\program files (x86)\microsoft directx sdk (june 2010)\include\d3d10.h(608): warning C4005: 'D3D10_ERROR_TOO_MANY_UNIQUE_STATE_OBJECTS': macro redefinition
+  C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50445): note: see previous definition of 'D3D10_ERROR_TOO_MANY_UNIQUE_STATE_OBJECTS'
+c:\program files (x86)\microsoft directx sdk (june 2010)\include\d3d10.h(609): warning C4005: 'D3D10_ERROR_FILE_NOT_FOUND': macro redefinition
+  C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50454): note: see previous definition of 'D3D10_ERROR_FILE_NOT_FOUND'
+C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\dwrite.h(4962): warning C4005: 'DWRITE_E_FILEFORMAT': macro redefinition
+  C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50921): note: see previous definition of 'DWRITE_E_FILEFORMAT'
+C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\dwrite.h(4967): warning C4005: 'DWRITE_E_UNEXPECTED': macro redefinition
+  C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50930): note: see previous definition of 'DWRITE_E_UNEXPECTED'
+C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\dwrite.h(4972): warning C4005: 'DWRITE_E_NOFONT': macro redefinition
+  C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50939): note: see previous definition of 'DWRITE_E_NOFONT'
+C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\dwrite.h(4978): warning C4005: 'DWRITE_E_FILENOTFOUND': macro redefinition
+  C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50948): note: see previous definition of 'DWRITE_E_FILENOTFOUND'
+C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\dwrite.h(4983): warning C4005: 'DWRITE_E_FILEACCESS': macro redefinition
+  C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50957): note: see previous definition of 'DWRITE_E_FILEACCESS'
+C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\dwrite.h(4988): warning C4005: 'DWRITE_E_FONTCOLLECTIONOBSOLETE': macro redefinition
+  C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50966): note: see previous definition of 'DWRITE_E_FONTCOLLECTIONOBSOLETE'
+C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\dwrite.h(4993): warning C4005: 'DWRITE_E_ALREADYREGISTERED': macro redefinition
+  C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50975): note: see previous definition of 'DWRITE_E_ALREADYREGISTERED'
+C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\d3d11.h(917): warning C4005: 'D3D11_ERROR_TOO_MANY_UNIQUE_STATE_OBJECTS': macro redefinition
+  C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50469): note: see previous definition of 'D3D11_ERROR_TOO_MANY_UNIQUE_STATE_OBJECTS'
+C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\d3d11.h(918): warning C4005: 'D3D11_ERROR_FILE_NOT_FOUND': macro redefinition
+  C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50478): note: see previous definition of 'D3D11_ERROR_FILE_NOT_FOUND'
+C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\d3d11.h(919): warning C4005: 'D3D11_ERROR_TOO_MANY_UNIQUE_VIEW_OBJECTS': macro redefinition
+  C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50488): note: see previous definition of 'D3D11_ERROR_TOO_MANY_UNIQUE_VIEW_OBJECTS'
+C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\d3d11.h(920): warning C4005: 'D3D11_ERROR_DEFERRED_CONTEXT_MAP_WITHOUT_INITIAL_DISCARD': macro redefinition
+  C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50497): note: see previous definition of 'D3D11_ERROR_DEFERRED_CONTEXT_MAP_WITHOUT_INITIAL_DISCARD'
+  C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
+c:\users\koviuser\desktop\maptool2\InputClass.h(3): warning C4005: 'DIRECTINPUT_VERSION': macro redefinition
+  C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\dinput.h(42): note: see previous definition of 'DIRECTINPUT_VERSION'
+  BitmapClass.cpp
+  CameraClass.cpp
+  ColorShaderClass.cpp
+  ControlProperty.cpp
+  ControlView.cpp
+  CpuClass.cpp
+  D3dClass.cpp
+  DirectLightShader.cpp
+  FBXLoader.cpp
+  FixedSplitterWnd.cpp
+  FontClass.cpp
+FontClass.cpp(97): warning C4101: 'result': unreferenced local variable
+FontClass.cpp(145): warning C4244: 'argument': conversion from 'double' to 'FLOAT', possible loss of data
+FontClass.cpp(149): warning C4244: 'argument': conversion from 'double' to 'FLOAT', possible loss of data
+FontClass.cpp(162): warning C4244: 'argument': conversion from 'double' to 'FLOAT', possible loss of data
+  FontShaderClass.cpp
+  FpsClass.cpp
+  FrustumClass.cpp
+  GeometryGenerator.cpp
+  InputClass.cpp
+  LightClass.cpp
+  MainFrm.cpp
+MainFrm.cpp : warning C4819: The file contains a character that cannot be represented in the current code page (949). Save the file in Unicode format to prevent data loss
+  MapScene.cpp
+MapScene.cpp(524): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+MapScene.cpp(525): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+MapScene.cpp(529): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+MapScene.cpp(530): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+  MapTool2.cpp
+  Compiling...
+  MapTool2Doc.cpp
+  MapTool2View.cpp
+  MathHelper.cpp
+  Mesh.cpp
+  MiniMapClass.cpp
+  MiniMapScene.cpp
+  MiniMapView.cpp
+  ModelClass.cpp
+ModelClass.cpp(50): warning C4018: '<': signed/unsigned mismatch
+ModelClass.cpp(343): warning C4018: '<': signed/unsigned mismatch
+ModelClass.cpp(452): warning C4018: '<': signed/unsigned mismatch
+ModelClass.cpp(362): warning C4101: 'i': unreferenced local variable
+ModelClass.cpp(361): warning C4101: 'str': unreferenced local variable
+ModelClass.cpp(494): warning C4018: '<': signed/unsigned mismatch
+  MtlTex.cpp
+  ObjGroup.cpp
+ObjGroup.cpp(42): warning C4018: '<': signed/unsigned mismatch
+  ObjLoader.cpp
+ObjLoader.cpp(30): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(119): note: see declaration of 'strcpy'
+ObjLoader.cpp(31): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(90): note: see declaration of 'strcat'
+ObjLoader.cpp(120): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(119): note: see declaration of 'strcpy'
+ObjLoader.cpp(121): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(90): note: see declaration of 'strcat'
+  Object.cpp
+  Page1.cpp
+  PerlinNoise.cpp
+PerlinNoise.cpp(39): warning C4552: '*': operator has no effect; expected operator with side-effect
+  PositionClass.cpp
+  ProperyView.cpp
+  QuadTreeClass.cpp
+  SkyDomeClass.cpp
+  SkyDomeShaderClass.cpp
+  SkyPlaneClass.cpp
+  Compiling...
+  SkyPlaneShaderClass.cpp
+  TerrainClass.cpp
+  TerrainShaderClass.cpp
+TerrainShaderClass.cpp(69): warning C4101: 'textureInfoBufferDesc': unreferenced local variable
+  TextClass.cpp
+  TextureClass.cpp
+  TextureManager.cpp
+  TextureShaderClass.cpp
+  TimerClass.cpp
+  cMap.cpp
+  cTile.cpp
+  Generating code
+  0 of 1428 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    43 functions had inline decision re-evaluated but remain unchanged
+  Finished generating code
+  MapTool2.vcxproj -> C:\Users\koviuser\Desktop\MapTool2\Release\MapTool2.exe
+  MapTool2.vcxproj -> C:\Users\koviuser\Desktop\MapTool2\Release\MapTool2.pdb (Full PDB)

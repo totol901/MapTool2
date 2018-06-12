@@ -1,5 +1,4 @@
-
-// MainFrm.cpp : CMainFrame Å¬·¡½ºÀÇ ±¸Çö
+// MainFrm.cpp : CMainFrame Å¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 //
 
 #include "stdafx.h"
@@ -23,19 +22,24 @@ END_MESSAGE_MAP()
 
 static UINT indicators[] =
 {
-	ID_SEPARATOR,           // »óÅÂ ÁÙ Ç¥½Ã±â
+	ID_SEPARATOR,           // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ Ç¥ï¿½Ã±ï¿½
 	ID_INDICATOR_CAPS,
 	ID_INDICATOR_NUM,
 	ID_INDICATOR_SCRL,
 };
 
-// CMainFrame »ý¼º/¼Ò¸ê
-
+// CMainFrame ï¿½ï¿½ï¿½ï¿½/ï¿½Ò¸ï¿½
 
 CMainFrame::CMainFrame()
 {
-	// TODO: ¿©±â¿¡ ¸â¹ö ÃÊ±âÈ­ ÄÚµå¸¦ Ãß°¡ÇÕ´Ï´Ù.
+	// TODO: ï¿½ï¿½ï¿½â¿¡ ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­ ï¿½Úµå¸¦ ï¿½ß°ï¿½ï¿½Õ´Ï´ï¿½.
 	CD3dClass::GetInstance();
+
+	AllocConsole();	//ï¿½Ü¼ï¿½ ï¿½Ò´ï¿½
+	FILE *acStreamOut;
+	FILE *acStreamIn;
+	freopen_s(&acStreamOut, "CONOUT$", "wt", stdout);
+	freopen_s(&acStreamIn, "CONIN$", "r", stdin);
 	//TextureManager::GetInstance();
 }
 
@@ -46,11 +50,9 @@ CMainFrame::~CMainFrame()
 	m_pMiniMapScene->Shutdown();
 	SAFE_DELETE(m_pMiniMapScene);
 
-
 	InputClass::GetInstance()->Shutdown();
 	//TextureManager::GetInstance()->Destroy();
 	CD3dClass::GetInstance()->Shutdown();
-	
 }
 
 //void CMainFrame::OnSize(UINT ntype, int cs, int cy)
@@ -69,18 +71,18 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	if (!m_wndToolBar.CreateEx(this, TBSTYLE_FLAT, WS_CHILD | WS_VISIBLE | CBRS_TOP | CBRS_GRIPPER | CBRS_TOOLTIPS | CBRS_FLYBY | CBRS_SIZE_DYNAMIC) ||
 		!m_wndToolBar.LoadToolBar(IDR_MAINFRAME))
 	{
-		TRACE0("µµ±¸ ¸ðÀ½À» ¸¸µéÁö ¸øÇß½À´Ï´Ù.\n");
-		return -1;      // ¸¸µéÁö ¸øÇß½À´Ï´Ù.
+		TRACE0("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ß½ï¿½ï¿½Ï´ï¿½.\n");
+		return -1;      // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ß½ï¿½ï¿½Ï´ï¿½.
 	}
 
 	if (!m_wndStatusBar.Create(this))
 	{
-		TRACE0("»óÅÂ Ç¥½ÃÁÙÀ» ¸¸µéÁö ¸øÇß½À´Ï´Ù.\n");
-		return -1;      // ¸¸µéÁö ¸øÇß½À´Ï´Ù.
+		TRACE0("ï¿½ï¿½ï¿½ï¿½ Ç¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ß½ï¿½ï¿½Ï´ï¿½.\n");
+		return -1;      // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ß½ï¿½ï¿½Ï´ï¿½.
 	}
-	m_wndStatusBar.SetIndicators(indicators, sizeof(indicators)/sizeof(UINT));
+	m_wndStatusBar.SetIndicators(indicators, sizeof(indicators) / sizeof(UINT));
 
-	// TODO: µµ±¸ ¸ðÀ½À» µµÅ·ÇÒ ¼ö ¾ø°Ô ÇÏ·Á¸é ÀÌ ¼¼ ÁÙÀ» »èÁ¦ÇÏ½Ê½Ã¿À.
+	// TODO: ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å·ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ï·ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï½Ê½Ã¿ï¿½.
 	m_wndToolBar.EnableDocking(CBRS_ALIGN_ANY);
 	EnableDocking(CBRS_ALIGN_ANY);
 	DockControlBar(&m_wndToolBar);
@@ -115,28 +117,27 @@ BOOL CMainFrame::OnCreateClient(LPCREATESTRUCT /*lpcs*/,
 
 	m_MainSplitter.SetColumnInfo(0, 300, 10);
 
-
-	//´ÙÀÌ·ºÆ®11 ÃÊ±âÈ­
+	//ï¿½ï¿½ï¿½Ì·ï¿½Æ®11 ï¿½Ê±ï¿½È­
 	CD3dClass::GetInstance()->Initialize(m_pMainView, m_pMiniMapView, m_pProperyView);
-	//ÅØ½ºÃÄ ºÒ·¯¿À±â
+	//ï¿½Ø½ï¿½ï¿½ï¿½ ï¿½Ò·ï¿½ï¿½ï¿½ï¿½ï¿½
 	//TextureManager::GetInstance()->AddTexture(TEXT("../MapTool2/texture/dirt01.dds"), TEXT("dirt01"));
-	
-	//ÀÎÇ² ÃÊ±âÈ­
+
+	//ï¿½ï¿½Ç² ï¿½Ê±ï¿½È­
 	InputClass::GetInstance()->Initialize(AfxGetInstanceHandle(),
 		this->m_hWnd);
 
-	//¸Ê½Å ÃÊ±âÈ­
+	//ï¿½Ê½ï¿½ ï¿½Ê±ï¿½È­
 	m_pMapScene = new MapScene;
-	m_pMapScene->Initialize(AfxGetInstanceHandle(), 
+	m_pMapScene->Initialize(AfxGetInstanceHandle(),
 		CD3dClass::GetInstance()->GetMainView()->m_hWnd
-		);
+	);
 	CD3dClass::GetInstance()->SetMapSceneLink(m_pMapScene);
 
-	//¹Ì´Ï¸Ê½Å ÃÊ±âÈ­
+	//ï¿½Ì´Ï¸Ê½ï¿½ ï¿½Ê±ï¿½È­
 	m_pMiniMapScene = new MiniMapScene;
 	m_pMiniMapScene->SetCameraLink(m_pMapScene->GetCameraClass());
 	m_pMiniMapScene->SetTerrainLink(m_pMapScene->GetTerrainClass());
-	m_pMiniMapScene->Initialize(AfxGetInstanceHandle(), 
+	m_pMiniMapScene->Initialize(AfxGetInstanceHandle(),
 		CD3dClass::GetInstance()->GetMiniView()->m_hWnd);
 	CD3dClass::GetInstance()->SetMiniMapSceneLink(m_pMiniMapScene);
 
@@ -145,15 +146,15 @@ BOOL CMainFrame::OnCreateClient(LPCREATESTRUCT /*lpcs*/,
 
 BOOL CMainFrame::PreCreateWindow(CREATESTRUCT& cs)
 {
-	if( !CFrameWnd::PreCreateWindow(cs) )
+	if (!CFrameWnd::PreCreateWindow(cs))
 		return FALSE;
-	// TODO: CREATESTRUCT cs¸¦ ¼öÁ¤ÇÏ¿© ¿©±â¿¡¼­
-	//  Window Å¬·¡½º ¶Ç´Â ½ºÅ¸ÀÏÀ» ¼öÁ¤ÇÕ´Ï´Ù.
+	// TODO: CREATESTRUCT csï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ ï¿½ï¿½ï¿½â¿¡ï¿½ï¿½
+	//  Window Å¬ï¿½ï¿½ï¿½ï¿½ ï¿½Ç´ï¿½ ï¿½ï¿½Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
 
 	return TRUE;
 }
 
-// CMainFrame Áø´Ü
+// CMainFrame ï¿½ï¿½ï¿½ï¿½
 
 #ifdef _DEBUG
 void CMainFrame::AssertValid() const

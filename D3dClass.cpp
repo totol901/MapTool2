@@ -54,58 +54,59 @@ CD3dClass * CD3dClass::GetInstance()
 //------------------------------------------------------------------------------------
 bool CD3dClass::Initialize(CMapTool2View* pMainView, CMiniMapView* pMiniMapView, CProperyView* pProperyView)
 {
+	m_fbxLoader = new FBXLoader();
 	IDXGIFactory* pFactory = nullptr;
-	D3D_FEATURE_LEVEL featureLevel;//FeatureLevel ¼±¾ð(ÃÖ°í ¼öÁØÀÇ Level ¹Þ±âÀ§ÇØ)
-	UINT createDeviceFlags = 0; // µð¹ÙÀÌ½º ÇÃ·¹±× ¼³Á¤(Default)
-	
+	D3D_FEATURE_LEVEL featureLevel;//FeatureLevel ï¿½ï¿½ï¿½ï¿½(ï¿½Ö°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Level ï¿½Þ±ï¿½ï¿½ï¿½ï¿½ï¿½)
+	UINT createDeviceFlags = 0; // ï¿½ï¿½ï¿½ï¿½Ì½ï¿½ ï¿½Ã·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½(Default)
+
 	m_pMainView = pMainView;
 	m_pMiniMapView = pMiniMapView;
 	m_pProperyView = pProperyView;
 
-	// DirectX ±×·¡ÇÈ ÀÎÅÍÆäÀÌ½º ÆÑÅä¸®¸¦ ¸¸µë
+	// DirectX ï¿½×·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì½ï¿½ ï¿½ï¿½ï¿½ä¸®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	HR(CreateDXGIFactory(__uuidof(IDXGIFactory), (void**)&pFactory));
 
-	// ÆÑÅä¸® °´Ã¼¸¦ »ç¿ëÇÏ¿© Ã¹¹øÂ° ±×·¡ÇÈ Ä«µå ÀÎÅÍÆäÀÌ½º ¾îµªÅÍ¸¦ »ý¼ºÇÕ´Ï´Ù
+	// ï¿½ï¿½ï¿½ä¸® ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ Ã¹ï¿½ï¿½Â° ï¿½×·ï¿½ï¿½ï¿½ Ä«ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì½ï¿½ ï¿½îµªï¿½Í¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½
 	IDXGIAdapter* adapter = nullptr;
 	if (FAILED(pFactory->EnumAdapters(0, &adapter)))
 	{
 		return false;
 	}
 
-	// Ãâ·Â(¸ð´ÏÅÍ)¿¡ ´ëÇÑ Ã¹¹øÂ° ¾îµªÅÍ¸¦ ÁöÁ¤ÇÕ´Ï´Ù.
+	// ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½)ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã¹ï¿½ï¿½Â° ï¿½îµªï¿½Í¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
 	IDXGIOutput* adapterOutput = nullptr;
 	if (FAILED(adapter->EnumOutputs(0, &adapterOutput)))
 	{
 		return false;
 	}
 
-	// Ãâ·Â (¸ð´ÏÅÍ)¿¡ ´ëÇÑ DXGI_FORMAT_R8G8B8A8_UNORM Ç¥½Ã Çü½Ä¿¡ ¸Â´Â ¸ðµå ¼ö¸¦ °¡Á®¿É´Ï´Ù
+	// ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ï¿½)ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ DXGI_FORMAT_R8G8B8A8_UNORM Ç¥ï¿½ï¿½ ï¿½ï¿½ï¿½Ä¿ï¿½ ï¿½Â´ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½É´Ï´ï¿½
 	unsigned int numModes = 0;
 	if (FAILED(adapterOutput->GetDisplayModeList(DXGI_FORMAT_R8G8B8A8_UNORM, DXGI_ENUM_MODES_INTERLACED, &numModes, NULL)))
 	{
 		return false;
 	}
 
-	// °¡´ÉÇÑ ¸ðµç ¸ð´ÏÅÍ¿Í ±×·¡ÇÈÄ«µå Á¶ÇÕÀ» ÀúÀåÇÒ ¸®½ºÆ®¸¦ »ý¼ºÇÕ´Ï´Ù
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Í¿ï¿½ ï¿½×·ï¿½ï¿½ï¿½Ä«ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½
 	DXGI_MODE_DESC* displayModeList = new DXGI_MODE_DESC[numModes];
 	if (!displayModeList)
 	{
 		return false;
 	}
 
-	// ÀÌÁ¦ µð½ºÇÃ·¹ÀÌ ¸ðµå¿¡ ´ëÇÑ ¸®½ºÆ®¸¦ Ã¤¿ó´Ï´Ù
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ã·ï¿½ï¿½ï¿½ ï¿½ï¿½å¿¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ Ã¤ï¿½ï¿½Ï´ï¿½
 	if (FAILED(adapterOutput->GetDisplayModeList(DXGI_FORMAT_R8G8B8A8_UNORM, DXGI_ENUM_MODES_INTERLACED, &numModes, displayModeList)))
 	{
 		return false;
 	}
 
-	// ÀÌÁ¦ ¸ðµç µð½ºÇÃ·¹ÀÌ ¸ðµå¿¡ ´ëÇØ È­¸é ³Êºñ/³ôÀÌ¿¡ ¸Â´Â µð½ºÇÃ·¹ÀÌ ¸ðµå¸¦ Ã£½À´Ï´Ù.
-	// ÀûÇÕÇÑ °ÍÀ» Ã£À¸¸é ¸ð´ÏÅÍÀÇ »õ·Î°íÄ§ ºñÀ²ÀÇ ºÐ¸ð¿Í ºÐÀÚ °ªÀ» ÀúÀåÇÕ´Ï´Ù.
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ã·ï¿½ï¿½ï¿½ ï¿½ï¿½å¿¡ ï¿½ï¿½ï¿½ï¿½ È­ï¿½ï¿½ ï¿½Êºï¿½/ï¿½ï¿½ï¿½Ì¿ï¿½ ï¿½Â´ï¿½ ï¿½ï¿½ï¿½Ã·ï¿½ï¿½ï¿½ ï¿½ï¿½å¸¦ Ã£ï¿½ï¿½ï¿½Ï´ï¿½.
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã£ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Î°ï¿½Ä§ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ð¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
 	unsigned int numerator = 0;
 	unsigned int denominator = 0;
 	CRect rect;
 	GetWindowRect(pMainView->m_hWnd, &rect);
-	for (unsigned int i = 0; i<numModes; i++)
+	for (unsigned int i = 0; i < numModes; i++)
 	{
 		if (displayModeList[i].Width == (unsigned int)rect.Width())
 		{
@@ -119,81 +120,81 @@ bool CD3dClass::Initialize(CMapTool2View* pMainView, CMiniMapView* pMiniMapView,
 	m_numerator = numerator;
 	m_denominator = denominator;
 
-	// ºñµð¿ÀÄ«µåÀÇ ±¸Á¶Ã¼¸¦ ¾ò½À´Ï´Ù
+	// ï¿½ï¿½ï¿½ï¿½Ä«ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï´ï¿½
 	DXGI_ADAPTER_DESC adapterDesc;
 	if (FAILED(adapter->GetDesc(&adapterDesc)))
 	{
 		return false;
 	}
 
-	// ºñµð¿ÀÄ«µå ¸Þ¸ð¸® ¿ë·® ´ÜÀ§¸¦ ¸Þ°¡¹ÙÀÌÆ® ´ÜÀ§·Î ÀúÀåÇÕ´Ï´Ù
+	// ï¿½ï¿½ï¿½ï¿½Ä«ï¿½ï¿½ ï¿½Þ¸ï¿½ ï¿½ë·® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ°ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½
 	m_videoCardMemory = (int)(adapterDesc.DedicatedVideoMemory / 1024 / 1024);
 
-	// ºñµð¿ÀÄ«µåÀÇ ÀÌ¸§À» ÀúÀåÇÕ´Ï´Ù
+	// ï¿½ï¿½ï¿½ï¿½Ä«ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½
 	size_t stringLength = 0;
 	if (wcstombs_s(&stringLength, m_videoCardDescription, 128, adapterDesc.Description, 128) != 0)
 	{
 		return false;
 	}
 
-	// µð½ºÇÃ·¹ÀÌ ¸ðµå ¸®½ºÆ®¸¦ ÇØÁ¦ÇÕ´Ï´Ù
+	// ï¿½ï¿½ï¿½Ã·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½
 	delete[] displayModeList;
 	displayModeList = 0;
 
-	// Ãâ·Â ¾îµªÅÍ¸¦ ÇØÁ¦ÇÕ´Ï´Ù
+	// ï¿½ï¿½ï¿½ ï¿½îµªï¿½Í¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½
 	adapterOutput->Release();
 	adapterOutput = 0;
 
-	// ¾îµªÅÍ¸¦ ÇØÁ¦ÇÕ´Ï´Ù
+	// ï¿½îµªï¿½Í¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½
 	adapter->Release();
 	adapter = 0;
-	
-#if defined(DEBUG) || defined(_DEBUG)  
-								//¿¡·¯½Ã µð¹ö±× Ãâ·ÂÇØÁÜ
+
+#if defined(DEBUG) || defined(_DEBUG)
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	createDeviceFlags |= D3D11_CREATE_DEVICE_DEBUG;
 #endif
 
-	//µð¹ÙÀÌ½º, µð¹ÙÀÌ½º ÄÁÅÃ½ºÆ® »ý¼º
+	//ï¿½ï¿½ï¿½ï¿½Ì½ï¿½, ï¿½ï¿½ï¿½ï¿½Ì½ï¿½ ï¿½ï¿½ï¿½Ã½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
 	HR(D3D11CreateDevice(
-		0,                 // default adapter(±âº» µð½ºÇÃ·¹ÀÌ ¾î´ðÅÍ ¼³Á¤)
-		D3D_DRIVER_TYPE_HARDWARE,	   // 3Â÷¿ø ±×·¡ÇÈ °¡¼Ó Àû¿ë
+		0,                 // default adapter(ï¿½âº» ï¿½ï¿½ï¿½Ã·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
+		D3D_DRIVER_TYPE_HARDWARE,	   // 3ï¿½ï¿½ï¿½ï¿½ ï¿½×·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		0,                 // no software device
-		createDeviceFlags, // µð¹ÙÀÌ½º ÇÃ·¹±× ¼³Á¤
+		createDeviceFlags, // ï¿½ï¿½ï¿½ï¿½Ì½ï¿½ ï¿½Ã·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		0, 0,              // default feature level array
-		D3D11_SDK_VERSION, // Ç×»ó D3D11_SDK_VERSION ÁöÁ¤
-		&m_pDevice,	   // d3dÀåÄ¡ ³Ö¾îÁÜ (Out °ª)
-		&featureLevel,	   // featureLevel ³Ö¾îÁÜ[Çö »ç¿ë°¡´É ÃÖ°í ¼öÁØÀÇ Level ³ª¿È] (OUt °ª)
-		&m_pDeviceContext)); // ÀåÄ¡ ¹®¸Æ(Context) ³Ö¾îÁÜ (Out °ª)
+		D3D11_SDK_VERSION, // ï¿½×»ï¿½ D3D11_SDK_VERSION ï¿½ï¿½ï¿½ï¿½
+		&m_pDevice,	   // d3dï¿½ï¿½Ä¡ ï¿½Ö¾ï¿½ï¿½ï¿½ (Out ï¿½ï¿½)
+		&featureLevel,	   // featureLevel ï¿½Ö¾ï¿½ï¿½ï¿½[ï¿½ï¿½ ï¿½ï¿½ë°¡ï¿½ï¿½ ï¿½Ö°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Level ï¿½ï¿½ï¿½ï¿½] (OUt ï¿½ï¿½)
+		&m_pDeviceContext)); // ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½(Context) ï¿½Ö¾ï¿½ï¿½ï¿½ (Out ï¿½ï¿½)
 
-	//FeatureLevelÀÇ ¼öÁØ °Ë»ç
+	//FeatureLevelï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½
 	if (featureLevel < D3D_FEATURE_LEVEL_11_0)
 	{
-		MessageBox(0, L"Direct3D Feature Level 11 Áö¿ø ¾ÈÇÔ.", 0, 0);
+		MessageBox(0, L"Direct3D Feature Level 11 ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.", 0, 0);
 		return false;
 	}
 
-	//¾Ë¸ÂÀº ¸ÖÆ¼¼ÀÇÃ¸µ Ä÷¸®Æ¼ ¼¼ÆÃ
+	//ï¿½Ë¸ï¿½ï¿½ï¿½ ï¿½ï¿½Æ¼ï¿½ï¿½ï¿½Ã¸ï¿½ ï¿½ï¿½ï¿½ï¿½Æ¼ ï¿½ï¿½ï¿½ï¿½
 	HR(m_pDevice->CheckMultisampleQualityLevels(
 		DXGI_FORMAT_R8G8B8A8_UNORM, 4, &m_4xMsaaQuality));
-	//¿Ã¹Ù¸¥ ¼¼ÆÃÀÎÁö Ã¤Å©
+	//ï¿½Ã¹Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¤Å©
 	assert(m_4xMsaaQuality > 0);
 
-	//½º¿ÒÃ¼ÀÎ ¼³Á¤
+	//ï¿½ï¿½ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	CreateMainSwapChain(pMainView, pFactory);
 	CreateMiniMapSwapChain(pMiniMapView, pFactory);
 	CreatePropertySwapChain(pProperyView, pFactory);
 
-	//ÆåÅä¸® ÇÒ´ç ÇØÁ¦
+	//ï¿½ï¿½ï¿½ä¸® ï¿½Ò´ï¿½ ï¿½ï¿½ï¿½ï¿½
 	RELEASE_COM(pFactory);
 
-	//·¹½ºÅÍ¶óÀÌÀú ½ºÅ×ÀÌÆ® »ý¼º
+	//ï¿½ï¿½ï¿½ï¿½ï¿½Í¶ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
 	CreateRasterizerStates();
 
-	// ºí·»µå »óÅÂ ±¸Á¶Ã¼¸¦ ÃÊ±âÈ­ ÇÕ´Ï´Ù.
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½Ê±ï¿½È­ ï¿½Õ´Ï´ï¿½.
 	D3D11_BLEND_DESC blendStateDescription;
 	ZeroMemory(&blendStateDescription, sizeof(D3D11_BLEND_DESC));
 
-	// ¾ËÆÄ Áö¿ø ºí·»µå »óÅÂ ±¸Á¶Ã¼¸¦ ¼³Á¤ÇÕ´Ï´Ù.
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
 	blendStateDescription.RenderTarget[0].BlendEnable = TRUE;
 	blendStateDescription.RenderTarget[0].SrcBlend = D3D11_BLEND_ONE;
 	blendStateDescription.RenderTarget[0].DestBlend = D3D11_BLEND_INV_SRC_ALPHA;
@@ -203,16 +204,16 @@ bool CD3dClass::Initialize(CMapTool2View* pMainView, CMiniMapView* pMiniMapView,
 	blendStateDescription.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
 	blendStateDescription.RenderTarget[0].RenderTargetWriteMask = 0x0f;
 
-	// ¼³¸íÀ» »ç¿ëÇÏ¿© È¥ÇÕ »óÅÂ¸¦ ¸¸µì´Ï´Ù.
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ È¥ï¿½ï¿½ ï¿½ï¿½ï¿½Â¸ï¿½ ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.
 	if (FAILED(m_pDevice->CreateBlendState(&blendStateDescription, &m_alphaEnableBlendingState)))
 	{
 		return false;
 	}
 
-	// ¾ËÆÄºí·»µå ¼³Á¤À» ÇØÁ¦ÇÕ´Ï´Ù.
+	// ï¿½ï¿½ï¿½Äºï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
 	blendStateDescription.RenderTarget[0].BlendEnable = FALSE;
 
-	// ¾ËÆÄºí·»µå »óÅÂ°ªÀ» »ý¼ºÇÕ´Ï´Ù.
+	// ï¿½ï¿½ï¿½Äºï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
 	if (FAILED(m_pDevice->CreateBlendState(&blendStateDescription, &m_alphaDisableBlendingState)))
 	{
 		return false;
@@ -236,7 +237,7 @@ bool CD3dClass::Initialize(CMapTool2View* pMainView, CMiniMapView* pMiniMapView,
 
 	isInit = true;
 
-	//Ã¢ Á¶Àý½Ã Àç¼³Á¤
+	//Ã¢ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ç¼³ï¿½ï¿½
 	OnResize(pMainView, pMiniMapView, pProperyView);
 
 	return true;
@@ -283,17 +284,17 @@ void CD3dClass::BeginMainScene(const float & red, const float & green, const flo
 	m_pDeviceContext->OMSetRenderTargets(1, &m_pMainRenderTargetView, m_pMainDepthStencilView);
 	m_pDeviceContext->RSSetViewports(1, &m_MainScreenViewport);
 
-	// º¤¹öÆÛ color·Î Áö¿öÁÜ
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ colorï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	m_pDeviceContext->ClearRenderTargetView(m_pMainRenderTargetView, color);
-	// ±íÀÌ¹öÆÛµµ Áö¿öÁÜ 
+	// ï¿½ï¿½ï¿½Ì¹ï¿½ï¿½Ûµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	m_pDeviceContext->ClearDepthStencilView(m_pMainDepthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
 }
 
 //------------------------------------------------------------------------------------
 void CD3dClass::EndMainScene()
 {
-	// º¤¹öÆÛ¿¡ ¿Ã¸° ±×¸² È­¸éÀ¸·Î º¸³¿
-	// °¡´ÉÇÑ »¡¸® ±×·ÁÁÜ
+	// ï¿½ï¿½ï¿½ï¿½ï¿½Û¿ï¿½ ï¿½Ã¸ï¿½ ï¿½×¸ï¿½ È­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½×·ï¿½ï¿½ï¿½
 	HR(m_pMainSwapChain->Present(0, 0));
 }
 
@@ -305,17 +306,17 @@ void CD3dClass::BeginMiniMapScene(const float & red, const float & green, const 
 	m_pDeviceContext->OMSetRenderTargets(1, &m_pMiniMapRenderTargetView, m_pMiniMapDepthStencilView);
 	m_pDeviceContext->RSSetViewports(1, &m_MiniMapScreenViewport);
 
-	// º¤¹öÆÛ color·Î Áö¿öÁÜ
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ colorï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	m_pDeviceContext->ClearRenderTargetView(m_pMiniMapRenderTargetView, color);
-	// ±íÀÌ¹öÆÛµµ Áö¿öÁÜ 
+	// ï¿½ï¿½ï¿½Ì¹ï¿½ï¿½Ûµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	m_pDeviceContext->ClearDepthStencilView(m_pMiniMapDepthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
 }
 
 //------------------------------------------------------------------------------------
 void CD3dClass::EndMiniMapScene()
-{	
-	// º¤¹öÆÛ¿¡ ¿Ã¸° ±×¸² È­¸éÀ¸·Î º¸³¿
-	// ¹Ì´Ï¸ÊÀº 60FPS·Î ±×·ÁÁÜ
+{
+	// ï¿½ï¿½ï¿½ï¿½ï¿½Û¿ï¿½ ï¿½Ã¸ï¿½ ï¿½×¸ï¿½ È­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	// ï¿½Ì´Ï¸ï¿½ï¿½ï¿½ 60FPSï¿½ï¿½ ï¿½×·ï¿½ï¿½ï¿½
 	HR(m_pMiniMapSwapChain->Present(0, 0));
 }
 
@@ -327,17 +328,17 @@ void CD3dClass::BeginPropertyScene(const float & red, const float & green, const
 	m_pDeviceContext->OMSetRenderTargets(1, &m_pPropertyRenderTargetView, m_pPropertyDepthStencilView);
 	m_pDeviceContext->RSSetViewports(1, &m_PropertyScreenViewport);
 
-	// º¤¹öÆÛ color·Î Áö¿öÁÜ
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ colorï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	m_pDeviceContext->ClearRenderTargetView(m_pPropertyRenderTargetView, color);
-	// ±íÀÌ¹öÆÛµµ Áö¿öÁÜ 
+	// ï¿½ï¿½ï¿½Ì¹ï¿½ï¿½Ûµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	m_pDeviceContext->ClearDepthStencilView(m_pPropertyDepthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
 }
 
 //------------------------------------------------------------------------------------
 void CD3dClass::EndPropertyScene()
 {
-	// º¤¹öÆÛ¿¡ ¿Ã¸° ±×¸² È­¸éÀ¸·Î º¸³¿
-	// ¼Ó¼ººä´Â 60FPS·Î ±×·ÁÁÜ
+	// ï¿½ï¿½ï¿½ï¿½ï¿½Û¿ï¿½ ï¿½Ã¸ï¿½ ï¿½×¸ï¿½ È­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	// ï¿½Ó¼ï¿½ï¿½ï¿½ï¿½ 60FPSï¿½ï¿½ ï¿½×·ï¿½ï¿½ï¿½
 	HR(m_pPropertySwapChain->Present(0, 0));
 }
 
@@ -357,19 +358,19 @@ void CD3dClass::TurnZBufferOff()
 
 void CD3dClass::TurnOnAlphaBlending()
 {
-	// È¥ÇÕ ¿ä¼Ò¸¦ ¼³Á¤ÇÕ´Ï´Ù.
+	// È¥ï¿½ï¿½ ï¿½ï¿½Ò¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
 	float blendFactor[4] = { 0.0f, 0.0f, 0.0f, 0.0f };
 
-	// ¾ËÆÄ ºí·»µùÀ» ÄÕ´Ï´Ù.
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Õ´Ï´ï¿½.
 	m_pDeviceContext->OMSetBlendState(m_alphaEnableBlendingState, blendFactor, 0xffffffff);
 }
 
 void CD3dClass::TurnOffAlphaBlending()
 {
-	// È¥ÇÕ ¿ä¼Ò¸¦ ¼³Á¤ÇÕ´Ï´Ù.
+	// È¥ï¿½ï¿½ ï¿½ï¿½Ò¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
 	float blendFactor[4] = { 0.0f, 0.0f, 0.0f, 0.0f };
 
-	// ¾ËÆÄ ºí·»µùÀ» ÄÕ´Ï´Ù.
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Õ´Ï´ï¿½.
 	m_pDeviceContext->OMSetBlendState(m_alphaDisableBlendingState, blendFactor, 0xffffffff);
 }
 
@@ -396,10 +397,10 @@ void CD3dClass::GetVideoCardInfo(char* cardName, int& memory)
 //------------------------------------------------------------------------------------
 void CD3dClass::CreateRasterizerStates()
 {
-	//·¹½ºÅÍ¶óÀÌÀú Desc ¼±¾ð
+	//ï¿½ï¿½ï¿½ï¿½ï¿½Í¶ï¿½ï¿½ï¿½ï¿½ï¿½ Desc ï¿½ï¿½ï¿½ï¿½
 	D3D11_RASTERIZER_DESC rasterDesc;
 
-	//¼Ö¸®µå »óÅÂ »ý¼º
+	//ï¿½Ö¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	ZeroMemory(&rasterDesc, sizeof(D3D11_RASTERIZER_DESC));
 	rasterDesc.AntialiasedLineEnable = false;
 	rasterDesc.CullMode = D3D11_CULL_BACK;
@@ -412,13 +413,12 @@ void CD3dClass::CreateRasterizerStates()
 	rasterDesc.ScissorEnable = false;
 	rasterDesc.SlopeScaledDepthBias = 0.0f;
 
-	// ÀÛ¼ºÇÑ descriptionÀ¸·ÎºÎÅÍ ·¡½ºÅÍÈ­±â »óÅÂ¸¦ »ý¼º
+	// ï¿½Û¼ï¿½ï¿½ï¿½ descriptionï¿½ï¿½ï¿½Îºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È­ï¿½ï¿½ ï¿½ï¿½ï¿½Â¸ï¿½ ï¿½ï¿½ï¿½ï¿½
 	HR(m_pDevice->CreateRasterizerState(&rasterDesc, &m_pRasterState_FillSolid));
 
-
-	//¿ÍÀÌ¾î ÇÁ·¡ÀÓ »óÅÂ »ý¼º
+	//ï¿½ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	ZeroMemory(&rasterDesc, sizeof(D3D11_RASTERIZER_DESC));
-	//ÃÊ±âÈ­
+	//ï¿½Ê±ï¿½È­
 	rasterDesc.AntialiasedLineEnable = false;
 	rasterDesc.CullMode = D3D11_CULL_BACK;
 	rasterDesc.DepthBias = 0;
@@ -430,7 +430,7 @@ void CD3dClass::CreateRasterizerStates()
 	rasterDesc.ScissorEnable = false;
 	rasterDesc.SlopeScaledDepthBias = 0.0f;
 
-	// ÀÛ¼ºÇÑ descriptionÀ¸·ÎºÎÅÍ ·¡½ºÅÍÈ­±â »óÅÂ¸¦ »ý¼º
+	// ï¿½Û¼ï¿½ï¿½ï¿½ descriptionï¿½ï¿½ï¿½Îºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È­ï¿½ï¿½ ï¿½ï¿½ï¿½Â¸ï¿½ ï¿½ï¿½ï¿½ï¿½
 	HR(m_pDevice->CreateRasterizerState(&rasterDesc, &m_pRasterState_WireFrame));
 
 	ZeroMemory(&rasterDesc, sizeof(D3D11_RASTERIZER_DESC));
@@ -447,13 +447,12 @@ void CD3dClass::CreateRasterizerStates()
 
 	// Create the no culling rasterizer state.
 	HR(m_pDevice->CreateRasterizerState(&rasterDesc, &m_rasterStateNoCulling));
-	
 }
 
 void CD3dClass::TurnOnCulling()
 {
 	// Set the culling rasterizer state.
-	if(m_bSolid_WireFrame)
+	if (m_bSolid_WireFrame)
 		m_pDeviceContext->RSSetState(m_pRasterState_FillSolid);
 	else
 		m_pDeviceContext->RSSetState(m_pRasterState_WireFrame);
@@ -475,36 +474,36 @@ void CD3dClass::CreateMainSwapChain(CMapTool2View * pMainView, IDXGIFactory* pFa
 	DXGI_SWAP_CHAIN_DESC MainSwapChainDesc;
 	CRect mainViewRect;
 
-	//±³È¯ »ç½½ descriptionÀ» ÃÊ±âÈ­ÇÕ´Ï´Ù.
-	//¸ÞÀÎºäÀÇ º¤¹öÆÛ ¼³Á¤
+	//ï¿½ï¿½È¯ ï¿½ç½½ descriptionï¿½ï¿½ ï¿½Ê±ï¿½È­ï¿½Õ´Ï´ï¿½.
+	//ï¿½ï¿½ï¿½Îºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	ZeroMemory(&MainSwapChainDesc, sizeof(MainSwapChainDesc));
 
-	//ÇÏ³ªÀÇ ¹é¹öÆÛ¸¸À» »ç¿ëÇÏµµ·Ï ÇÕ´Ï´Ù.
+	//ï¿½Ï³ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Û¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ïµï¿½ï¿½ï¿½ ï¿½Õ´Ï´ï¿½.
 	MainSwapChainDesc.BufferCount = 1;
 
-	//¹é¹öÆÛÀÇ ³Êºñ¿Í ³ôÀÌ¸¦ ¼³Á¤ÇÕ´Ï´Ù.
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Êºï¿½ï¿½ ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
 	GetWindowRect(pMainView->m_hWnd, mainViewRect);
 	MainSwapChainDesc.BufferDesc.Width = mainViewRect.right - mainViewRect.left;
 	MainSwapChainDesc.BufferDesc.Height = mainViewRect.bottom - mainViewRect.top;
 
-	//¹é¹öÆÛ·Î ÀÏ¹ÝÀûÀÎ 32bitÀÇ ¼­ÆäÀÌ½º¸¦ ÁöÁ¤ÇÕ´Ï´Ù.
-	MainSwapChainDesc.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;//ÈÄ¸é ¹öÆÛ ÇÈ¼¿ Çü½Ä
-																	 // ¹é¹öÆÛÀÇ »õ·Î°íÄ§ ºñÀ²À» ¼³Á¤ÇÕ´Ï´Ù. 
+	//ï¿½ï¿½ï¿½ï¿½Û·ï¿½ ï¿½Ï¹ï¿½ï¿½ï¿½ï¿½ï¿½ 32bitï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
+	MainSwapChainDesc.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;//ï¿½Ä¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½È¼ï¿½ ï¿½ï¿½ï¿½ï¿½
+																	 // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Î°ï¿½Ä§ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
 	MainSwapChainDesc.BufferDesc.RefreshRate.Numerator = 0;
 	MainSwapChainDesc.BufferDesc.RefreshRate.Denominator = 1;
 
-	// ¹é¹öÆÛÀÇ ¿ëµµ¸¦ ¼³Á¤ÇÕ´Ï´Ù. 
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ëµµï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
 	MainSwapChainDesc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
-	// ·»´õ¸µÀÌ ÀÌ·ç¾îÁú À©µµ¿ìÀÇ ÇÚµéÀ» ¼³Á¤ÇÕ´Ï´Ù. 
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì·ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Úµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
 	MainSwapChainDesc.OutputWindow = pMainView->m_hWnd;
 
-	// ¸ÖÆ¼¼ÀÇÃ¸µ À¯¹« È®ÀÎ
+	// ï¿½ï¿½Æ¼ï¿½ï¿½ï¿½Ã¸ï¿½ ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½
 	if (ENABLE_4X_MSAA)
 	{
 		MainSwapChainDesc.SampleDesc.Count = 4;
 		MainSwapChainDesc.SampleDesc.Quality = m_4xMsaaQuality - 1;
 	}
-	// ¸ÖÆ¼¼ÀÇÃ¸µ ¾È¾¸
+	// ï¿½ï¿½Æ¼ï¿½ï¿½ï¿½Ã¸ï¿½ ï¿½È¾ï¿½
 	else
 	{
 		MainSwapChainDesc.SampleDesc.Count = 1;
@@ -513,18 +512,18 @@ void CD3dClass::CreateMainSwapChain(CMapTool2View * pMainView, IDXGIFactory* pFa
 
 	MainSwapChainDesc.Windowed = true;
 
-	// ½ºÄµ¶óÀÎÀÇ Á¤·Ä°ú ½ºÄµ¶óÀÌ´×À» ÁöÁ¤µÇÁö ¾ÊÀ½À¸·Î(unspecified) ¼³Á¤ÇÕ´Ï´Ù. 
-	MainSwapChainDesc.BufferDesc.ScanlineOrdering = DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED; //µð½ºÇÃ·¹ÀÌ ½ºÄµ¶óÀÎ ¸ðµå
-	MainSwapChainDesc.BufferDesc.Scaling = DXGI_MODE_SCALING_UNSPECIFIED; //µð½ºÇÃ·¹ÀÌ ºñ·Ê ¸ðµå
-																		  // Ãâ·ÂµÈ ÀÌÈÄÀÇ ¹é¹öÆÛÀÇ ³»¿ëÀ» ¹ö¸®µµ·Ï ÇÕ´Ï´Ù. 
+	// ï¿½ï¿½Äµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ä°ï¿½ ï¿½ï¿½Äµï¿½ï¿½ï¿½Ì´ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(unspecified) ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
+	MainSwapChainDesc.BufferDesc.ScanlineOrdering = DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED; //ï¿½ï¿½ï¿½Ã·ï¿½ï¿½ï¿½ ï¿½ï¿½Äµï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+	MainSwapChainDesc.BufferDesc.Scaling = DXGI_MODE_SCALING_UNSPECIFIED; //ï¿½ï¿½ï¿½Ã·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+																		  // ï¿½ï¿½Âµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Õ´Ï´ï¿½.
 	MainSwapChainDesc.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;
-	// ÀüÃ¼È­¸é ÀüÈ¯½Ã ÈÄ¸é¹öÆÛ ¼³Á¤¿¡ ÀßºÎÇÕÇÏ´Â µð½ºÇÃ·¹ÀÌ ¸ðµå ¼³Á¤µÊ 
+	// ï¿½ï¿½Ã¼È­ï¿½ï¿½ ï¿½ï¿½È¯ï¿½ï¿½ ï¿½Ä¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ßºï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½Ã·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	MainSwapChainDesc.Flags = DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH;
 
-	//½º¿ÒÃ¼ÀÎ »ý¼º
+	//ï¿½ï¿½ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	HR(pFactory->CreateSwapChain(m_pDevice, &MainSwapChainDesc, &m_pMainSwapChain));
 
-	//¾ËÆ® + ¾Ø´õ ¸ÔÁö ¾Ê°Ô ÇØÁÜ
+	//ï¿½ï¿½Æ® + ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê°ï¿½ ï¿½ï¿½ï¿½ï¿½
 	HR(pFactory->MakeWindowAssociation(pMainView->m_hWnd, DXGI_MWA_NO_WINDOW_CHANGES));
 }
 
@@ -534,36 +533,36 @@ void CD3dClass::CreateMiniMapSwapChain(CMiniMapView * pMiniMapView, IDXGIFactory
 	DXGI_SWAP_CHAIN_DESC MiniMapSwapChainDesc;
 	CRect MiniMapViewRect;
 
-	//±³È¯ »ç½½ descriptionÀ» ÃÊ±âÈ­ÇÕ´Ï´Ù.
-	//¸ÞÀÎºäÀÇ º¤¹öÆÛ ¼³Á¤
+	//ï¿½ï¿½È¯ ï¿½ç½½ descriptionï¿½ï¿½ ï¿½Ê±ï¿½È­ï¿½Õ´Ï´ï¿½.
+	//ï¿½ï¿½ï¿½Îºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	ZeroMemory(&MiniMapSwapChainDesc, sizeof(MiniMapSwapChainDesc));
 
-	//ÇÏ³ªÀÇ ¹é¹öÆÛ¸¸À» »ç¿ëÇÏµµ·Ï ÇÕ´Ï´Ù.
+	//ï¿½Ï³ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Û¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ïµï¿½ï¿½ï¿½ ï¿½Õ´Ï´ï¿½.
 	MiniMapSwapChainDesc.BufferCount = 1;
 
-	//¹é¹öÆÛÀÇ ³Êºñ¿Í ³ôÀÌ¸¦ ¼³Á¤ÇÕ´Ï´Ù.
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Êºï¿½ï¿½ ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
 	GetWindowRect(pMiniMapView->m_hWnd, MiniMapViewRect);
 	MiniMapSwapChainDesc.BufferDesc.Width = MiniMapViewRect.right - MiniMapViewRect.left;
 	MiniMapSwapChainDesc.BufferDesc.Height = MiniMapViewRect.bottom - MiniMapViewRect.top;
 
-	//¹é¹öÆÛ·Î ÀÏ¹ÝÀûÀÎ 32bitÀÇ ¼­ÆäÀÌ½º¸¦ ÁöÁ¤ÇÕ´Ï´Ù.
-	MiniMapSwapChainDesc.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;//ÈÄ¸é ¹öÆÛ ÇÈ¼¿ Çü½Ä
-																	 // ¹é¹öÆÛÀÇ »õ·Î°íÄ§ ºñÀ²À» ¼³Á¤ÇÕ´Ï´Ù. 
+	//ï¿½ï¿½ï¿½ï¿½Û·ï¿½ ï¿½Ï¹ï¿½ï¿½ï¿½ï¿½ï¿½ 32bitï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
+	MiniMapSwapChainDesc.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;//ï¿½Ä¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½È¼ï¿½ ï¿½ï¿½ï¿½ï¿½
+																	 // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Î°ï¿½Ä§ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
 	MiniMapSwapChainDesc.BufferDesc.RefreshRate.Numerator = 0;
 	MiniMapSwapChainDesc.BufferDesc.RefreshRate.Denominator = 1;
 
-	// ¹é¹öÆÛÀÇ ¿ëµµ¸¦ ¼³Á¤ÇÕ´Ï´Ù. 
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ëµµï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
 	MiniMapSwapChainDesc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
-	// ·»´õ¸µÀÌ ÀÌ·ç¾îÁú À©µµ¿ìÀÇ ÇÚµéÀ» ¼³Á¤ÇÕ´Ï´Ù. 
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì·ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Úµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
 	MiniMapSwapChainDesc.OutputWindow = pMiniMapView->m_hWnd;
 
-	// ¸ÖÆ¼¼ÀÇÃ¸µ À¯¹« È®ÀÎ
+	// ï¿½ï¿½Æ¼ï¿½ï¿½ï¿½Ã¸ï¿½ ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½
 	if (ENABLE_4X_MSAA)
 	{
 		MiniMapSwapChainDesc.SampleDesc.Count = 4;
 		MiniMapSwapChainDesc.SampleDesc.Quality = m_4xMsaaQuality - 1;
 	}
-	// ¸ÖÆ¼¼ÀÇÃ¸µ ¾È¾¸
+	// ï¿½ï¿½Æ¼ï¿½ï¿½ï¿½Ã¸ï¿½ ï¿½È¾ï¿½
 	else
 	{
 		MiniMapSwapChainDesc.SampleDesc.Count = 1;
@@ -572,18 +571,18 @@ void CD3dClass::CreateMiniMapSwapChain(CMiniMapView * pMiniMapView, IDXGIFactory
 
 	MiniMapSwapChainDesc.Windowed = true;
 
-	// ½ºÄµ¶óÀÎÀÇ Á¤·Ä°ú ½ºÄµ¶óÀÌ´×À» ÁöÁ¤µÇÁö ¾ÊÀ½À¸·Î(unspecified) ¼³Á¤ÇÕ´Ï´Ù. 
-	MiniMapSwapChainDesc.BufferDesc.ScanlineOrdering = DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED; //µð½ºÇÃ·¹ÀÌ ½ºÄµ¶óÀÎ ¸ðµå
-	MiniMapSwapChainDesc.BufferDesc.Scaling = DXGI_MODE_SCALING_UNSPECIFIED; //µð½ºÇÃ·¹ÀÌ ºñ·Ê ¸ðµå
-																		  // Ãâ·ÂµÈ ÀÌÈÄÀÇ ¹é¹öÆÛÀÇ ³»¿ëÀ» ¹ö¸®µµ·Ï ÇÕ´Ï´Ù. 
+	// ï¿½ï¿½Äµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ä°ï¿½ ï¿½ï¿½Äµï¿½ï¿½ï¿½Ì´ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(unspecified) ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
+	MiniMapSwapChainDesc.BufferDesc.ScanlineOrdering = DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED; //ï¿½ï¿½ï¿½Ã·ï¿½ï¿½ï¿½ ï¿½ï¿½Äµï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+	MiniMapSwapChainDesc.BufferDesc.Scaling = DXGI_MODE_SCALING_UNSPECIFIED; //ï¿½ï¿½ï¿½Ã·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+																		  // ï¿½ï¿½Âµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Õ´Ï´ï¿½.
 	MiniMapSwapChainDesc.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;
-	// ÀüÃ¼È­¸é ÀüÈ¯½Ã ÈÄ¸é¹öÆÛ ¼³Á¤¿¡ ÀßºÎÇÕÇÏ´Â µð½ºÇÃ·¹ÀÌ ¸ðµå ¼³Á¤µÊ 
+	// ï¿½ï¿½Ã¼È­ï¿½ï¿½ ï¿½ï¿½È¯ï¿½ï¿½ ï¿½Ä¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ßºï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½Ã·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	MiniMapSwapChainDesc.Flags = DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH;
 
-	//½º¿ÒÃ¼ÀÎ »ý¼º
+	//ï¿½ï¿½ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	HR(pFactory->CreateSwapChain(m_pDevice, &MiniMapSwapChainDesc, &m_pMiniMapSwapChain));
 
-	//¾ËÆ® + ¾Ø´õ ¸ÔÁö ¾Ê°Ô ÇØÁÜ
+	//ï¿½ï¿½Æ® + ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê°ï¿½ ï¿½ï¿½ï¿½ï¿½
 	HR(pFactory->MakeWindowAssociation(pMiniMapView->m_hWnd, DXGI_MWA_NO_WINDOW_CHANGES));
 }
 
@@ -592,11 +591,11 @@ void CD3dClass::CreateMiniRenderTargetView(const CRect  ViewRect)
 {
 	ID3D11Texture2D* backBuffer;
 
-	//¹öÆÛ Å©±â Àç¼³Á¤
+	//ï¿½ï¿½ï¿½ï¿½ Å©ï¿½ï¿½ ï¿½ç¼³ï¿½ï¿½
 	HR(m_pMiniMapSwapChain->ResizeBuffers(1, ViewRect.right - ViewRect.left,
 		ViewRect.bottom - ViewRect.top, DXGI_FORMAT_R8G8B8A8_UNORM, 0));
 	HR(m_pMiniMapSwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), reinterpret_cast<void**>(&backBuffer)));
-	//·£´õ Å¸°Ù Àç¼³Á¤
+	//ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½ ï¿½ç¼³ï¿½ï¿½
 	HR(m_pDevice->CreateRenderTargetView(backBuffer, 0, &m_pMiniMapRenderTargetView));
 	RELEASE_COM(backBuffer);
 }
@@ -606,7 +605,7 @@ void CD3dClass::CreateMiniDepthStencilBuffer(const CRect  ViewRect)
 {
 	D3D11_TEXTURE2D_DESC miniDepthBufferDesc;
 
-	//±íÀÌ ¹öÆÛ ¼³Á¤
+	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	ZeroMemory(&miniDepthBufferDesc, sizeof(D3D11_TEXTURE2D_DESC));
 
 	miniDepthBufferDesc.Width = ViewRect.right - ViewRect.left;
@@ -615,13 +614,13 @@ void CD3dClass::CreateMiniDepthStencilBuffer(const CRect  ViewRect)
 	miniDepthBufferDesc.ArraySize = 1;
 	miniDepthBufferDesc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
 
-	// ¸ÖÆ¼¼ÀÇÃ¸µ À¯¹«
+	// ï¿½ï¿½Æ¼ï¿½ï¿½ï¿½Ã¸ï¿½ ï¿½ï¿½ï¿½ï¿½
 	if (ENABLE_4X_MSAA)
 	{
 		miniDepthBufferDesc.SampleDesc.Count = 4;
 		miniDepthBufferDesc.SampleDesc.Quality = m_4xMsaaQuality - 1;
 	}
-	// ¸ÖÆ¼¼ÀÇÃ¸µ ¾ÈÇÔ
+	// ï¿½ï¿½Æ¼ï¿½ï¿½ï¿½Ã¸ï¿½ ï¿½ï¿½ï¿½ï¿½
 	else
 	{
 		miniDepthBufferDesc.SampleDesc.Count = 1;
@@ -633,33 +632,33 @@ void CD3dClass::CreateMiniDepthStencilBuffer(const CRect  ViewRect)
 	miniDepthBufferDesc.CPUAccessFlags = 0;
 	miniDepthBufferDesc.MiscFlags = 0;
 
-	//±íÀÌ ¹öÆÛ ÅØ½ºÃ³ »ý¼º
+	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ø½ï¿½Ã³ ï¿½ï¿½ï¿½ï¿½
 	HR(m_pDevice->CreateTexture2D(&miniDepthBufferDesc, 0, &m_pMiniMapDepthStencilBuffer));
 }
 
 //------------------------------------------------------------------------------------
 void CD3dClass::SetOMMiniRenderTarget()
 {
-	// ±íÀÌ-½ºÅÙ½Ç ºäÀÇ descriptionÀ» ÃÊ±âÈ­
+	// ï¿½ï¿½ï¿½ï¿½-ï¿½ï¿½ï¿½Ù½ï¿½ ï¿½ï¿½ï¿½ï¿½ descriptionï¿½ï¿½ ï¿½Ê±ï¿½È­
 	D3D11_DEPTH_STENCIL_VIEW_DESC miniDepthStencilViewDesc;
 	ZeroMemory(&miniDepthStencilViewDesc, sizeof(D3D11_DEPTH_STENCIL_VIEW_DESC));
 
-	// ±íÀÌ-½ºÅÙ½Ç ºäÀÇ descriptionÀ» ÀÛ¼ºÇÕ´Ï´Ù.
+	// ï¿½ï¿½ï¿½ï¿½-ï¿½ï¿½ï¿½Ù½ï¿½ ï¿½ï¿½ï¿½ï¿½ descriptionï¿½ï¿½ ï¿½Û¼ï¿½ï¿½Õ´Ï´ï¿½.
 	miniDepthStencilViewDesc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
 	miniDepthStencilViewDesc.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
 	miniDepthStencilViewDesc.Texture2D.MipSlice = 0;
 
-	// ±íÀÌ-½ºÅÙ½Ç ºä¸¦ »ý¼º
+	// ï¿½ï¿½ï¿½ï¿½-ï¿½ï¿½ï¿½Ù½ï¿½ ï¿½ä¸¦ ï¿½ï¿½ï¿½ï¿½
 	HR(m_pDevice->CreateDepthStencilView(m_pMiniMapDepthStencilBuffer, &miniDepthStencilViewDesc, &m_pMiniMapDepthStencilView));
 
-	//Output Merger¿¡ ·£´õÅ¸°¹ ¼³Á¤(±íÀÌ/½ºÅÙ½Ç ºä Æ÷ÇÔ)
+	//Output Mergerï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½Ù½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
 	m_pDeviceContext->OMSetRenderTargets(1, &m_pMiniMapRenderTargetView, m_pMiniMapDepthStencilView);
 }
 
 //------------------------------------------------------------------------------------
 void CD3dClass::CreateMiniViewPort(const CRect  ViewRect)
 {
-	//ºäÆ÷Æ® Àç¼³Á¤
+	//ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ç¼³ï¿½ï¿½
 	m_MiniMapScreenViewport.TopLeftX = 0.0f;
 	m_MiniMapScreenViewport.TopLeftY = 0.0f;
 	m_MiniMapScreenViewport.Width = static_cast<float>(ViewRect.right - ViewRect.left);
@@ -676,36 +675,36 @@ void CD3dClass::CreatePropertySwapChain(CProperyView * pProperyView, IDXGIFactor
 	DXGI_SWAP_CHAIN_DESC ProperypSwapChainDesc;
 	CRect ProperyViewRect;
 
-	//±³È¯ »ç½½ descriptionÀ» ÃÊ±âÈ­ÇÕ´Ï´Ù.
-	//¸ÞÀÎºäÀÇ º¤¹öÆÛ ¼³Á¤
+	//ï¿½ï¿½È¯ ï¿½ç½½ descriptionï¿½ï¿½ ï¿½Ê±ï¿½È­ï¿½Õ´Ï´ï¿½.
+	//ï¿½ï¿½ï¿½Îºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	ZeroMemory(&ProperypSwapChainDesc, sizeof(ProperypSwapChainDesc));
 
-	//ÇÏ³ªÀÇ ¹é¹öÆÛ¸¸À» »ç¿ëÇÏµµ·Ï ÇÕ´Ï´Ù.
+	//ï¿½Ï³ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Û¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ïµï¿½ï¿½ï¿½ ï¿½Õ´Ï´ï¿½.
 	ProperypSwapChainDesc.BufferCount = 1;
 
-	//¹é¹öÆÛÀÇ ³Êºñ¿Í ³ôÀÌ¸¦ ¼³Á¤ÇÕ´Ï´Ù.
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Êºï¿½ï¿½ ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
 	GetWindowRect(pProperyView->m_hWnd, ProperyViewRect);
 	ProperypSwapChainDesc.BufferDesc.Width = ProperyViewRect.right - ProperyViewRect.left;
 	ProperypSwapChainDesc.BufferDesc.Height = ProperyViewRect.bottom - ProperyViewRect.top;
 
-	//¹é¹öÆÛ·Î ÀÏ¹ÝÀûÀÎ 32bitÀÇ ¼­ÆäÀÌ½º¸¦ ÁöÁ¤ÇÕ´Ï´Ù.
-	ProperypSwapChainDesc.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;//ÈÄ¸é ¹öÆÛ ÇÈ¼¿ Çü½Ä
-																		// ¹é¹öÆÛÀÇ »õ·Î°íÄ§ ºñÀ²À» ¼³Á¤ÇÕ´Ï´Ù. 
+	//ï¿½ï¿½ï¿½ï¿½Û·ï¿½ ï¿½Ï¹ï¿½ï¿½ï¿½ï¿½ï¿½ 32bitï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
+	ProperypSwapChainDesc.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;//ï¿½Ä¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½È¼ï¿½ ï¿½ï¿½ï¿½ï¿½
+																		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Î°ï¿½Ä§ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
 	ProperypSwapChainDesc.BufferDesc.RefreshRate.Numerator = 0;
 	ProperypSwapChainDesc.BufferDesc.RefreshRate.Denominator = 1;
 
-	// ¹é¹öÆÛÀÇ ¿ëµµ¸¦ ¼³Á¤ÇÕ´Ï´Ù. 
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ëµµï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
 	ProperypSwapChainDesc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
-	// ·»´õ¸µÀÌ ÀÌ·ç¾îÁú À©µµ¿ìÀÇ ÇÚµéÀ» ¼³Á¤ÇÕ´Ï´Ù. 
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì·ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Úµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
 	ProperypSwapChainDesc.OutputWindow = pProperyView->m_hWnd;
 
-	// ¸ÖÆ¼¼ÀÇÃ¸µ À¯¹« È®ÀÎ
+	// ï¿½ï¿½Æ¼ï¿½ï¿½ï¿½Ã¸ï¿½ ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½
 	if (ENABLE_4X_MSAA)
 	{
 		ProperypSwapChainDesc.SampleDesc.Count = 4;
 		ProperypSwapChainDesc.SampleDesc.Quality = m_4xMsaaQuality - 1;
 	}
-	// ¸ÖÆ¼¼ÀÇÃ¸µ ¾È¾¸
+	// ï¿½ï¿½Æ¼ï¿½ï¿½ï¿½Ã¸ï¿½ ï¿½È¾ï¿½
 	else
 	{
 		ProperypSwapChainDesc.SampleDesc.Count = 1;
@@ -714,18 +713,18 @@ void CD3dClass::CreatePropertySwapChain(CProperyView * pProperyView, IDXGIFactor
 
 	ProperypSwapChainDesc.Windowed = true;
 
-	// ½ºÄµ¶óÀÎÀÇ Á¤·Ä°ú ½ºÄµ¶óÀÌ´×À» ÁöÁ¤µÇÁö ¾ÊÀ½À¸·Î(unspecified) ¼³Á¤ÇÕ´Ï´Ù. 
-	ProperypSwapChainDesc.BufferDesc.ScanlineOrdering = DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED; //µð½ºÇÃ·¹ÀÌ ½ºÄµ¶óÀÎ ¸ðµå
-	ProperypSwapChainDesc.BufferDesc.Scaling = DXGI_MODE_SCALING_UNSPECIFIED; //µð½ºÇÃ·¹ÀÌ ºñ·Ê ¸ðµå
-																			 // Ãâ·ÂµÈ ÀÌÈÄÀÇ ¹é¹öÆÛÀÇ ³»¿ëÀ» ¹ö¸®µµ·Ï ÇÕ´Ï´Ù. 
+	// ï¿½ï¿½Äµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ä°ï¿½ ï¿½ï¿½Äµï¿½ï¿½ï¿½Ì´ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(unspecified) ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
+	ProperypSwapChainDesc.BufferDesc.ScanlineOrdering = DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED; //ï¿½ï¿½ï¿½Ã·ï¿½ï¿½ï¿½ ï¿½ï¿½Äµï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+	ProperypSwapChainDesc.BufferDesc.Scaling = DXGI_MODE_SCALING_UNSPECIFIED; //ï¿½ï¿½ï¿½Ã·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+																			 // ï¿½ï¿½Âµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Õ´Ï´ï¿½.
 	ProperypSwapChainDesc.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;
-	// ÀüÃ¼È­¸é ÀüÈ¯½Ã ÈÄ¸é¹öÆÛ ¼³Á¤¿¡ ÀßºÎÇÕÇÏ´Â µð½ºÇÃ·¹ÀÌ ¸ðµå ¼³Á¤µÊ 
+	// ï¿½ï¿½Ã¼È­ï¿½ï¿½ ï¿½ï¿½È¯ï¿½ï¿½ ï¿½Ä¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ßºï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½Ã·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	ProperypSwapChainDesc.Flags = DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH;
 
-	//½º¿ÒÃ¼ÀÎ »ý¼º
+	//ï¿½ï¿½ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	HR(pFactory->CreateSwapChain(m_pDevice, &ProperypSwapChainDesc, &m_pPropertySwapChain));
 
-	//¾ËÆ® + ¾Ø´õ ¸ÔÁö ¾Ê°Ô ÇØÁÜ
+	//ï¿½ï¿½Æ® + ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê°ï¿½ ï¿½ï¿½ï¿½ï¿½
 	HR(pFactory->MakeWindowAssociation(pProperyView->m_hWnd, DXGI_MWA_NO_WINDOW_CHANGES));
 }
 
@@ -734,11 +733,11 @@ void CD3dClass::CreatePropertyRenderTargetView(const CRect  ViewRect)
 {
 	ID3D11Texture2D* backBuffer;
 
-	//¹öÆÛ Å©±â Àç¼³Á¤
+	//ï¿½ï¿½ï¿½ï¿½ Å©ï¿½ï¿½ ï¿½ç¼³ï¿½ï¿½
 	HR(m_pPropertySwapChain->ResizeBuffers(1, ViewRect.right - ViewRect.left,
 		ViewRect.bottom - ViewRect.top, DXGI_FORMAT_R8G8B8A8_UNORM, 0));
 	HR(m_pPropertySwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), reinterpret_cast<void**>(&backBuffer)));
-	//·£´õ Å¸°Ù Àç¼³Á¤
+	//ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½ ï¿½ç¼³ï¿½ï¿½
 	HR(m_pDevice->CreateRenderTargetView(backBuffer, 0, &m_pPropertyRenderTargetView));
 	RELEASE_COM(backBuffer);
 }
@@ -748,7 +747,7 @@ void CD3dClass::CreatePropertyDepthStencilBuffer(const CRect  ViewRect)
 {
 	D3D11_TEXTURE2D_DESC PropertyDepthBufferDesc;
 
-	//±íÀÌ ¹öÆÛ ¼³Á¤
+	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	ZeroMemory(&PropertyDepthBufferDesc, sizeof(D3D11_TEXTURE2D_DESC));
 
 	PropertyDepthBufferDesc.Width = ViewRect.right - ViewRect.left;
@@ -757,13 +756,13 @@ void CD3dClass::CreatePropertyDepthStencilBuffer(const CRect  ViewRect)
 	PropertyDepthBufferDesc.ArraySize = 1;
 	PropertyDepthBufferDesc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
 
-	// ¸ÖÆ¼¼ÀÇÃ¸µ À¯¹«
+	// ï¿½ï¿½Æ¼ï¿½ï¿½ï¿½Ã¸ï¿½ ï¿½ï¿½ï¿½ï¿½
 	if (ENABLE_4X_MSAA)
 	{
 		PropertyDepthBufferDesc.SampleDesc.Count = 4;
 		PropertyDepthBufferDesc.SampleDesc.Quality = m_4xMsaaQuality - 1;
 	}
-	// ¸ÖÆ¼¼ÀÇÃ¸µ ¾ÈÇÔ
+	// ï¿½ï¿½Æ¼ï¿½ï¿½ï¿½Ã¸ï¿½ ï¿½ï¿½ï¿½ï¿½
 	else
 	{
 		PropertyDepthBufferDesc.SampleDesc.Count = 1;
@@ -775,33 +774,33 @@ void CD3dClass::CreatePropertyDepthStencilBuffer(const CRect  ViewRect)
 	PropertyDepthBufferDesc.CPUAccessFlags = 0;
 	PropertyDepthBufferDesc.MiscFlags = 0;
 
-	//±íÀÌ ¹öÆÛ ÅØ½ºÃ³ »ý¼º
+	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ø½ï¿½Ã³ ï¿½ï¿½ï¿½ï¿½
 	HR(m_pDevice->CreateTexture2D(&PropertyDepthBufferDesc, 0, &m_pPropertyDepthStencilBuffer));
 }
 
 //------------------------------------------------------------------------------------
 void CD3dClass::SetOMPropertyRenderTarget()
 {
-	// ±íÀÌ-½ºÅÙ½Ç ºäÀÇ descriptionÀ» ÃÊ±âÈ­
+	// ï¿½ï¿½ï¿½ï¿½-ï¿½ï¿½ï¿½Ù½ï¿½ ï¿½ï¿½ï¿½ï¿½ descriptionï¿½ï¿½ ï¿½Ê±ï¿½È­
 	D3D11_DEPTH_STENCIL_VIEW_DESC PropertyDepthStencilViewDesc;
 	ZeroMemory(&PropertyDepthStencilViewDesc, sizeof(D3D11_DEPTH_STENCIL_VIEW_DESC));
 
-	// ±íÀÌ-½ºÅÙ½Ç ºäÀÇ descriptionÀ» ÀÛ¼ºÇÕ´Ï´Ù.
+	// ï¿½ï¿½ï¿½ï¿½-ï¿½ï¿½ï¿½Ù½ï¿½ ï¿½ï¿½ï¿½ï¿½ descriptionï¿½ï¿½ ï¿½Û¼ï¿½ï¿½Õ´Ï´ï¿½.
 	PropertyDepthStencilViewDesc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
 	PropertyDepthStencilViewDesc.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
 	PropertyDepthStencilViewDesc.Texture2D.MipSlice = 0;
 
-	// ±íÀÌ-½ºÅÙ½Ç ºä¸¦ »ý¼º
+	// ï¿½ï¿½ï¿½ï¿½-ï¿½ï¿½ï¿½Ù½ï¿½ ï¿½ä¸¦ ï¿½ï¿½ï¿½ï¿½
 	HR(m_pDevice->CreateDepthStencilView(m_pPropertyDepthStencilBuffer, &PropertyDepthStencilViewDesc, &m_pPropertyDepthStencilView));
 
-	//Output Merger¿¡ ·£´õÅ¸°¹ ¼³Á¤(±íÀÌ/½ºÅÙ½Ç ºä Æ÷ÇÔ)
+	//Output Mergerï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½Ù½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
 	m_pDeviceContext->OMSetRenderTargets(1, &m_pPropertyRenderTargetView, m_pPropertyDepthStencilView);
 }
 
 //-----------------------------------------------------------------------------------
 void CD3dClass::CreatePropertyViewPort(const CRect  ViewRect)
 {
-	//ºäÆ÷Æ® Àç¼³Á¤
+	//ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ç¼³ï¿½ï¿½
 	m_PropertyScreenViewport.TopLeftX = 0.0f;
 	m_PropertyScreenViewport.TopLeftY = 0.0f;
 	m_PropertyScreenViewport.Width = static_cast<float>(ViewRect.right - ViewRect.left);
@@ -815,10 +814,10 @@ void CD3dClass::CreatePropertyViewPort(const CRect  ViewRect)
 //------------------------------------------------------------------------------------
 void CD3dClass::CreateDepthStencilState()
 {
-	// ½ºÅÙ½Ç »óÅÂÀÇ descriptionÀ» ÃÊ±âÈ­ÇÕ´Ï´Ù.
+	// ï¿½ï¿½ï¿½Ù½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ descriptionï¿½ï¿½ ï¿½Ê±ï¿½È­ï¿½Õ´Ï´ï¿½.
 	D3D11_DEPTH_STENCIL_DESC depthStencilDesc;
 	ZeroMemory(&depthStencilDesc, sizeof(depthStencilDesc));
-	// ½ºÅÙ½Ç »óÅÂÀÇ descriptionÀ» ÀÛ¼ºÇÕ´Ï´Ù.
+	// ï¿½ï¿½ï¿½Ù½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ descriptionï¿½ï¿½ ï¿½Û¼ï¿½ï¿½Õ´Ï´ï¿½.
 	depthStencilDesc.DepthEnable = true;
 	depthStencilDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
 	depthStencilDesc.DepthFunc = D3D11_COMPARISON_LESS;
@@ -836,17 +835,17 @@ void CD3dClass::CreateDepthStencilState()
 	depthStencilDesc.BackFace.StencilPassOp = D3D11_STENCIL_OP_KEEP;
 	depthStencilDesc.BackFace.StencilFunc = D3D11_COMPARISON_ALWAYS;
 
-	// ±íÀÌ-½ºÅÙ½Ç »óÅÂ¸¦ »ý¼º
+	// ï¿½ï¿½ï¿½ï¿½-ï¿½ï¿½ï¿½Ù½ï¿½ ï¿½ï¿½ï¿½Â¸ï¿½ ï¿½ï¿½ï¿½ï¿½
 	HR(m_pDevice->CreateDepthStencilState(&depthStencilDesc, &m_pDepthStencilState));
 }
 
 //------------------------------------------------------------------------------------
 void CD3dClass::CreateDisableDepthStencilState()
 {
-	// ½ºÅÙ½Ç »óÅÂÀÇ descriptionÀ» ÃÊ±âÈ­ÇÕ´Ï´Ù.
+	// ï¿½ï¿½ï¿½Ù½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ descriptionï¿½ï¿½ ï¿½Ê±ï¿½È­ï¿½Õ´Ï´ï¿½.
 	D3D11_DEPTH_STENCIL_DESC depthStencilDesc;
 	ZeroMemory(&depthStencilDesc, sizeof(depthStencilDesc));
-	// ½ºÅÙ½Ç »óÅÂÀÇ descriptionÀ» ÀÛ¼ºÇÕ´Ï´Ù.
+	// ï¿½ï¿½ï¿½Ù½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ descriptionï¿½ï¿½ ï¿½Û¼ï¿½ï¿½Õ´Ï´ï¿½.
 	depthStencilDesc.DepthEnable = false;
 	depthStencilDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
 	depthStencilDesc.DepthFunc = D3D11_COMPARISON_LESS;
@@ -864,7 +863,7 @@ void CD3dClass::CreateDisableDepthStencilState()
 	depthStencilDesc.BackFace.StencilPassOp = D3D11_STENCIL_OP_KEEP;
 	depthStencilDesc.BackFace.StencilFunc = D3D11_COMPARISON_ALWAYS;
 
-	// ±íÀÌ-½ºÅÙ½Ç »óÅÂ¸¦ »ý¼º
+	// ï¿½ï¿½ï¿½ï¿½-ï¿½ï¿½ï¿½Ù½ï¿½ ï¿½ï¿½ï¿½Â¸ï¿½ ï¿½ï¿½ï¿½ï¿½
 	HR(m_pDevice->CreateDepthStencilState(&depthStencilDesc, &m_pDepthDisableStencilState));
 }
 
@@ -873,12 +872,12 @@ void CD3dClass::SetZBuffer()
 {
 	if (m_bIsZBufferOn)
 	{
-		// ±íÀÌ-½ºÅÙ½Ç »óÅÂ¸¦ ¼³Á¤
+		// ï¿½ï¿½ï¿½ï¿½-ï¿½ï¿½ï¿½Ù½ï¿½ ï¿½ï¿½ï¿½Â¸ï¿½ ï¿½ï¿½ï¿½ï¿½
 		m_pDeviceContext->OMSetDepthStencilState(m_pDepthStencilState, 1);
 	}
 	else
 	{
-		// ±íÀÌ-½ºÅÙ½Ç »óÅÂ¸¦ ¼³Á¤
+		// ï¿½ï¿½ï¿½ï¿½-ï¿½ï¿½ï¿½Ù½ï¿½ ï¿½ï¿½ï¿½Â¸ï¿½ ï¿½ï¿½ï¿½ï¿½
 		m_pDeviceContext->OMSetDepthStencilState(m_pDepthDisableStencilState, 1);
 	}
 }
@@ -901,11 +900,11 @@ void CD3dClass::CreateMainRenderTargetView(const CRect ViewRect)
 {
 	ID3D11Texture2D* backBuffer;
 
-	//¹öÆÛ Å©±â Àç¼³Á¤
+	//ï¿½ï¿½ï¿½ï¿½ Å©ï¿½ï¿½ ï¿½ç¼³ï¿½ï¿½
 	HR(m_pMainSwapChain->ResizeBuffers(1, ViewRect.right - ViewRect.left,
 		ViewRect.bottom - ViewRect.top, DXGI_FORMAT_R8G8B8A8_UNORM, 0));
 	HR(m_pMainSwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), reinterpret_cast<void**>(&backBuffer)));
-	//·£´õ Å¸°Ù Àç¼³Á¤
+	//ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½ ï¿½ç¼³ï¿½ï¿½
 	HR(m_pDevice->CreateRenderTargetView(backBuffer, 0, &m_pMainRenderTargetView));
 	RELEASE_COM(backBuffer);
 }
@@ -915,7 +914,7 @@ void CD3dClass::CreateMainDepthStencilBuffer(const CRect mainViewRect)
 {
 	D3D11_TEXTURE2D_DESC mainDepthBufferDesc;
 
-	//±íÀÌ ¹öÆÛ ¼³Á¤
+	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	ZeroMemory(&mainDepthBufferDesc, sizeof(D3D11_TEXTURE2D_DESC));
 
 	mainDepthBufferDesc.Width = mainViewRect.right - mainViewRect.left;
@@ -924,13 +923,13 @@ void CD3dClass::CreateMainDepthStencilBuffer(const CRect mainViewRect)
 	mainDepthBufferDesc.ArraySize = 1;
 	mainDepthBufferDesc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
 
-	// ¸ÖÆ¼¼ÀÇÃ¸µ À¯¹«
+	// ï¿½ï¿½Æ¼ï¿½ï¿½ï¿½Ã¸ï¿½ ï¿½ï¿½ï¿½ï¿½
 	if (ENABLE_4X_MSAA)
 	{
 		mainDepthBufferDesc.SampleDesc.Count = 4;
 		mainDepthBufferDesc.SampleDesc.Quality = m_4xMsaaQuality - 1;
 	}
-	// ¸ÖÆ¼¼ÀÇÃ¸µ ¾ÈÇÔ
+	// ï¿½ï¿½Æ¼ï¿½ï¿½ï¿½Ã¸ï¿½ ï¿½ï¿½ï¿½ï¿½
 	else
 	{
 		mainDepthBufferDesc.SampleDesc.Count = 1;
@@ -942,14 +941,14 @@ void CD3dClass::CreateMainDepthStencilBuffer(const CRect mainViewRect)
 	mainDepthBufferDesc.CPUAccessFlags = 0;
 	mainDepthBufferDesc.MiscFlags = 0;
 
-	//±íÀÌ ¹öÆÛ ÅØ½ºÃ³ »ý¼º
+	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ø½ï¿½Ã³ ï¿½ï¿½ï¿½ï¿½
 	HR(m_pDevice->CreateTexture2D(&mainDepthBufferDesc, 0, &m_pMainDepthStencilBuffer));
 }
 
 //------------------------------------------------------------------------------------
 void CD3dClass::CreateMainViewPort(const CRect  mainViewRect)
 {
-	//ºäÆ÷Æ® Àç¼³Á¤
+	//ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ç¼³ï¿½ï¿½
 	m_MainScreenViewport.TopLeftX = 0.0f;
 	m_MainScreenViewport.TopLeftY = 0.0f;
 	m_MainScreenViewport.Width = static_cast<float>(mainViewRect.right - mainViewRect.left);
@@ -963,19 +962,19 @@ void CD3dClass::CreateMainViewPort(const CRect  mainViewRect)
 //------------------------------------------------------------------------------------
 void CD3dClass::SetOMMainRenderTarget()
 {
-	// ±íÀÌ-½ºÅÙ½Ç ºäÀÇ descriptionÀ» ÃÊ±âÈ­
+	// ï¿½ï¿½ï¿½ï¿½-ï¿½ï¿½ï¿½Ù½ï¿½ ï¿½ï¿½ï¿½ï¿½ descriptionï¿½ï¿½ ï¿½Ê±ï¿½È­
 	D3D11_DEPTH_STENCIL_VIEW_DESC mainDepthStencilViewDesc;
 	ZeroMemory(&mainDepthStencilViewDesc, sizeof(mainDepthStencilViewDesc));
 
-	// ±íÀÌ-½ºÅÙ½Ç ºäÀÇ descriptionÀ» ÀÛ¼ºÇÕ´Ï´Ù.
+	// ï¿½ï¿½ï¿½ï¿½-ï¿½ï¿½ï¿½Ù½ï¿½ ï¿½ï¿½ï¿½ï¿½ descriptionï¿½ï¿½ ï¿½Û¼ï¿½ï¿½Õ´Ï´ï¿½.
 	mainDepthStencilViewDesc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
 	mainDepthStencilViewDesc.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
 	mainDepthStencilViewDesc.Texture2D.MipSlice = 0;
 
-	// ±íÀÌ-½ºÅÙ½Ç ºä¸¦ »ý¼º
+	// ï¿½ï¿½ï¿½ï¿½-ï¿½ï¿½ï¿½Ù½ï¿½ ï¿½ä¸¦ ï¿½ï¿½ï¿½ï¿½
 	HR(m_pDevice->CreateDepthStencilView(m_pMainDepthStencilBuffer, &mainDepthStencilViewDesc, &m_pMainDepthStencilView));
 
-	//Output Merger¿¡ ·£´õÅ¸°¹ ¼³Á¤(±íÀÌ/½ºÅÙ½Ç ºä Æ÷ÇÔ)
+	//Output Mergerï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½Ù½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
 	m_pDeviceContext->OMSetRenderTargets(1, &m_pMainRenderTargetView, m_pMainDepthStencilView);
 }
 
@@ -985,21 +984,21 @@ void CD3dClass::OnResize(CMapTool2View * pMainView, CMiniMapView * pMiniMapView,
 	if (!isInit)
 		return;
 
-	//ÀÌ ÇÔ¼ö¿¡ ¾²ÀÏ º¯¼öµé Ã¤Å©
+	//ï¿½ï¿½ ï¿½Ô¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¤Å©
 	assert(m_pDeviceContext);
 	assert(m_pDevice);
 	assert(m_pMainSwapChain);
 	assert(m_pMiniMapSwapChain);
 	assert(m_pPropertySwapChain);
 
-	//»ç¿ëÇÑ COM°´Ã¼µé ¸±¸®Áî
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ COMï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	RELEASE_COM(m_pDepthStencilState);
 	RELEASE_COM(m_pDepthDisableStencilState);
 
 	RELEASE_COM(m_pMainRenderTargetView);
 	RELEASE_COM(m_pMainDepthStencilBuffer);
 	RELEASE_COM(m_pMainDepthStencilView);
-	
+
 	RELEASE_COM(m_pMiniMapRenderTargetView);
 	RELEASE_COM(m_pMiniMapDepthStencilBuffer);
 	RELEASE_COM(m_pMiniMapDepthStencilView);
@@ -1012,43 +1011,43 @@ void CD3dClass::OnResize(CMapTool2View * pMainView, CMiniMapView * pMiniMapView,
 	CRect miniMapViewRect;
 	CRect PropertyViewRect;
 
-	//----°øÅë----
-	//µª½º ½ºÅÙ½Ç »óÅÂ¸¦ ¸¸µë
+	//----ï¿½ï¿½ï¿½ï¿½----
+	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ù½ï¿½ ï¿½ï¿½ï¿½Â¸ï¿½ ï¿½ï¿½ï¿½ï¿½
 	CreateDepthStencilState();
 	CreateDisableDepthStencilState();
-	//Z¹öÆÛ On/Off
+	//Zï¿½ï¿½ï¿½ï¿½ On/Off
 	SetZBuffer();
-	// ·¡½ºÅÍÈ­±â »óÅÂ¸¦ ¼³Á¤
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È­ï¿½ï¿½ ï¿½ï¿½ï¿½Â¸ï¿½ ï¿½ï¿½ï¿½ï¿½
 	SetRestersate();
-	
-	//-----¸ÞÀÎ ºä----
-	//¸ÞÀÎ ºä Ã¢ÀÇ Å©±â ¹Þ¾Æ¿È
+
+	//-----ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½----
+	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ Ã¢ï¿½ï¿½ Å©ï¿½ï¿½ ï¿½Þ¾Æ¿ï¿½
 	GetWindowRect(pMainView->m_hWnd, mainViewRect);
-	//¸ÞÀÎ ·£´õ Å¸°Ù ºä ¼³Á¤
+	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	CreateMainRenderTargetView(mainViewRect);
 	CreateMainDepthStencilBuffer(mainViewRect);
 	SetOMMainRenderTarget();
-	//¸ÞÀÎ ºäÆ÷Æ® »ý¼º
+	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
 	CreateMainViewPort(mainViewRect);
 
-	//-----¹Ì´Ï¸Ê ºä----
-	//¹Ì´Ï¸Ê ºä Ã¢ÀÇ Å©±â ¹Þ¾Æ¿È
+	//-----ï¿½Ì´Ï¸ï¿½ ï¿½ï¿½----
+	//ï¿½Ì´Ï¸ï¿½ ï¿½ï¿½ Ã¢ï¿½ï¿½ Å©ï¿½ï¿½ ï¿½Þ¾Æ¿ï¿½
 	GetWindowRect(pMiniMapView->m_hWnd, miniMapViewRect);
-	//¹Ì´Ï¸Ê ·£´õ Å¸°Ù ºä ¼³Á¤
+	//ï¿½Ì´Ï¸ï¿½ ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	CreateMiniRenderTargetView(miniMapViewRect);
 	CreateMiniDepthStencilBuffer(miniMapViewRect);
 	SetOMMiniRenderTarget();
-	//¹Ì´Ï¸Ê ºäÆ÷Æ® »ý¼º
+	//ï¿½Ì´Ï¸ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
 	CreateMiniViewPort(miniMapViewRect);
 
-	//-----¼Ó¼º ºä----
-	//¼Ó¼º ºä Ã¢ÀÇ Å©±â ¹Þ¾Æ¿È
+	//-----ï¿½Ó¼ï¿½ ï¿½ï¿½----
+	//ï¿½Ó¼ï¿½ ï¿½ï¿½ Ã¢ï¿½ï¿½ Å©ï¿½ï¿½ ï¿½Þ¾Æ¿ï¿½
 	GetWindowRect(pProperyView->m_hWnd, PropertyViewRect);
-	//¼Ó¼º ·£´õ Å¸°Ù ºä ¼³Á¤
+	//ï¿½Ó¼ï¿½ ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	CreatePropertyRenderTargetView(PropertyViewRect);
 	CreatePropertyDepthStencilBuffer(PropertyViewRect);
 	SetOMPropertyRenderTarget();
-	//¼Ó¼º ºäÆ÷Æ® »ý¼º
+	//ï¿½Ó¼ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
 	CreatePropertyViewPort(PropertyViewRect);
 }
 

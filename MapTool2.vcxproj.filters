@@ -94,6 +94,9 @@
     <Filter Include="01. FrameView\0. MainFrm\MapScene\Map\sky">
       <UniqueIdentifier>{c0d6d610-3832-42fc-9133-bf00dff9a315}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Models">
+      <UniqueIdentifier>{a5198e3b-7038-4d09-9482-6af0caa2a9e2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -249,6 +252,15 @@
     <ClInclude Include="ObjGroup.h">
       <Filter>04. Shader</Filter>
     </ClInclude>
+    <ClInclude Include="Mesh.h">
+      <Filter>Models</Filter>
+    </ClInclude>
+    <ClInclude Include="FBXLoader.h">
+      <Filter>Models</Filter>
+    </ClInclude>
+    <ClInclude Include="Object.h">
+      <Filter>Models</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MapTool2.cpp">
@@ -394,6 +406,15 @@
     </ClCompile>
     <ClCompile Include="ObjGroup.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Mesh.cpp">
+      <Filter>Models</Filter>
+    </ClCompile>
+    <ClCompile Include="FBXLoader.cpp">
+      <Filter>Models</Filter>
+    </ClCompile>
+    <ClCompile Include="Object.cpp">
+      <Filter>Models</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

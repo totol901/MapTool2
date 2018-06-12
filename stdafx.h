@@ -1,32 +1,31 @@
-
-// stdafx.h : ÀÚÁÖ »ç¿ëÇÏÁö¸¸ ÀÚÁÖ º¯°æµÇÁö´Â ¾Ê´Â
-// Ç¥ÁØ ½Ã½ºÅÛ Æ÷ÇÔ ÆÄÀÏ ¹× ÇÁ·ÎÁ§Æ® °ü·Ã Æ÷ÇÔ ÆÄÀÏÀÌ 
-// µé¾î ÀÖ´Â Æ÷ÇÔ ÆÄÀÏÀÔ´Ï´Ù.
+// stdafx.h : ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´ï¿½
+// Ç¥ï¿½ï¿½ ï¿½Ã½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+// ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ô´Ï´ï¿½.
 
 #pragma once
 
 #ifndef VC_EXTRALEAN
-#define VC_EXTRALEAN            // °ÅÀÇ »ç¿ëµÇÁö ¾Ê´Â ³»¿ëÀº Windows Çì´õ¿¡¼­ Á¦¿ÜÇÕ´Ï´Ù.
+#define VC_EXTRALEAN            // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Windows ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
 #endif
 
 #include "targetver.h"
 
-#define _ATL_CSTRING_EXPLICIT_CONSTRUCTORS      // ÀÏºÎ CString »ý¼ºÀÚ´Â ¸í½ÃÀûÀ¸·Î ¼±¾ðµË´Ï´Ù.
+#define _ATL_CSTRING_EXPLICIT_CONSTRUCTORS      // ï¿½Ïºï¿½ CString ï¿½ï¿½ï¿½ï¿½ï¿½Ú´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ë´Ï´ï¿½.
 
-// MFCÀÇ °øÅë ºÎºÐ°ú ¹«½Ã °¡´ÉÇÑ °æ°í ¸Þ½ÃÁö¿¡ ´ëÇÑ ¼û±â±â¸¦ ÇØÁ¦ÇÕ´Ï´Ù.
+// MFCï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ÎºÐ°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Þ½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½â¸¦ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
 #define _AFX_ALL_WARNINGS
 
-#include <afxwin.h>         // MFC ÇÙ½É ¹× Ç¥ÁØ ±¸¼º ¿ä¼ÒÀÔ´Ï´Ù.
-#include <afxext.h>         // MFC È®ÀåÀÔ´Ï´Ù.
+#include <afxwin.h>         // MFC ï¿½Ù½ï¿½ ï¿½ï¿½ Ç¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ô´Ï´ï¿½.
+#include <afxext.h>         // MFC È®ï¿½ï¿½ï¿½Ô´Ï´ï¿½.
 
 #ifndef _AFX_NO_OLE_SUPPORT
-#include <afxdtctl.h>           // Internet Explorer 4 °ø¿ë ÄÁÆ®·Ñ¿¡ ´ëÇÑ MFC Áö¿øÀÔ´Ï´Ù.
+#include <afxdtctl.h>           // Internet Explorer 4 ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½Ñ¿ï¿½ ï¿½ï¿½ï¿½ï¿½ MFC ï¿½ï¿½ï¿½ï¿½ï¿½Ô´Ï´ï¿½.
 #endif
 #ifndef _AFX_NO_AFXCMN_SUPPORT
-#include <afxcmn.h>             // Windows °ø¿ë ÄÁÆ®·Ñ¿¡ ´ëÇÑ MFC Áö¿øÀÔ´Ï´Ù.
+#include <afxcmn.h>             // Windows ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½Ñ¿ï¿½ ï¿½ï¿½ï¿½ï¿½ MFC ï¿½ï¿½ï¿½ï¿½ï¿½Ô´Ï´ï¿½.
 #endif // _AFX_NO_AFXCMN_SUPPORT
 
-#include <afxcontrolbars.h>     // MFCÀÇ ¸®º» ¹× ÄÁÆ®·Ñ ¸·´ë Áö¿ø
+#include <afxcontrolbars.h>     // MFCï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 #include <afxdlgs.h>
 
 #ifdef _UNICODE
@@ -39,9 +38,9 @@
 #endif
 #endif
 
-#include <d3d11.h> 
+#include <d3d11.h>
 #include <d3dx11tex.h>
-#include <d3dcommon.h> 
+#include <d3dcommon.h>
 #include <d3dx10math.h>
 #include <d3dx11async.h>
 #include <fstream>
@@ -56,20 +55,23 @@
 #include <dinput.h>
 #include <mmsystem.h>
 #include <pdh.h>
+#include <fbxsdk.h>
+#include <chrono>
+#include <iostream>
 
-#if defined(DEBUG) || defined(_DEBUG)  
+#if defined(DEBUG) || defined(_DEBUG)
 #include <DxErr.h>
 #endif
 
 using namespace std;
 
-//»ç¿ëÀÚ ¿ë include
+//ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ include
 #include "MiniMapView.h"
 #include "MapTool2View.h"
 #include "ProperyView.h"
 #include "D3dClass.h"
 
-/** °£´Ü d3d error checker (ÃâÃ³ : 3D °ÔÀÓ ÇÁ·Î±×·¡¹Ö ÀÔ¹®, ÇÁ·©Å© D.·ç³ª)**/
+/** ï¿½ï¿½ï¿½ï¿½ d3d error checker (ï¿½ï¿½Ã³ : 3D ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Î±×·ï¿½ï¿½ï¿½ ï¿½Ô¹ï¿½, ï¿½ï¿½ï¿½ï¿½Å© D.ï¿½ç³ª)**/
 #if defined(DEBUG) | defined(_DEBUG)
 #ifndef HR
 #define HR(x)													\
@@ -86,12 +88,13 @@ using namespace std;
 #ifndef HR
 #define HR(x) (x)
 #endif
-#endif 
+#endif
+#pragma comment(lib, "libfbxsdk-md.lib")
 
-/** COM °´Ã¼ ¸±¸®Áî °£Æí ¸ÅÅ©·Î**/
+/** COM ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å©ï¿½ï¿½**/
 #define RELEASE_COM(x) { if(x){ x->Release(); x = NULL; } }
 
-/** delete °£Æí ¸ÅÅ©·Îµé**/
+/** delete ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å©ï¿½Îµï¿½**/
 #define SAFE_DELETE(x) { delete x; x = NULL; }
 #define SAFE_DELETE_ARRAY(x) { delete[] x; x = NULL;}
 
@@ -113,7 +116,6 @@ struct ST_PNT_VERTEX
 		, t(_t)
 	{
 	}
-
 };
 
 struct ST_BOUNDING_BOX
@@ -146,4 +148,23 @@ struct TAG_MATERIAL
 	D3DXVECTOR4   Specular;       /* Specular 'shininess' */
 	D3DXVECTOR4   Emissive;       /* Emissive color RGB */
 	float           Power;          /* Sharpness if specular highlight */
+};
+
+struct Vertex
+{
+	D3DXVECTOR3 mPos;
+	D3DXVECTOR3 mNormal;
+	D3DXVECTOR2 mUV;
+	D3DXVECTOR4 mTangentU;
+	FLOAT mWeight[3];
+	BYTE mIndices[4];
+};
+struct Material
+{
+	Material() { ZeroMemory(this, sizeof(this)); }
+
+	D3DXVECTOR4 mAmbient;
+	D3DXVECTOR4 mDiffuse;
+	D3DXVECTOR4 mSpecular;
+	D3DXVECTOR4 mReflect;
 };

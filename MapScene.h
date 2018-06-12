@@ -19,6 +19,7 @@
 #include "skyplaneshaderclass.h"
 
 class ModelClass;
+class Mesh;
 
 const float SCREEN_DEPTH = 1000.0f;
 const float SCREEN_NEAR = 0.1f;
@@ -34,8 +35,8 @@ public:
 	bool Frame();
 	bool InputFrame();
 
-	CameraClass* GetCameraClass()const {return m_Camera;}
-	TerrainClass* GetTerrainClass()const {return m_Terrain;}
+	CameraClass* GetCameraClass()const { return m_Camera; }
+	TerrainClass* GetTerrainClass()const { return m_Terrain; }
 
 private:
 	bool HandleInput(float);
@@ -52,19 +53,20 @@ private:
 	FontShaderClass* m_FontShader = nullptr;
 	TextClass* m_Text = nullptr;
 	TerrainShaderClass* m_TerrainShader = nullptr;
-	LightClass* m_Light=nullptr;
-	FrustumClass* m_Frustum=nullptr;
-	QuadTreeClass* m_QuadTree=nullptr;
+	LightClass* m_Light = nullptr;
+	FrustumClass* m_Frustum = nullptr;
+	QuadTreeClass* m_QuadTree = nullptr;
 	SkyDomeClass* m_SkyDome = nullptr;
 	SkyDomeShaderClass* m_SkyDomeShader = nullptr;
 	SkyPlaneClass *m_SkyPlane = nullptr;
 	SkyPlaneShaderClass* m_SkyPlaneShader = nullptr;
 
 	ModelClass* m_TestModel;
+
+	Mesh* mMesh;
 private:
 	D3DXMATRIX m_worldMatrix;
 	D3DXMATRIX m_viewMatrix;
 	D3DXMATRIX m_projectionMatrix;
 	D3DXMATRIX m_orthoMatrix;
-
 };

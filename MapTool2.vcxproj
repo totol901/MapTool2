@@ -81,6 +81,9 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
+    <IncludePath>C:\Users\koviuser\Desktop\MapTool2\FBX\FBX SDK\2017.1\include;C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\koviuser\Desktop\MapTool2\FBX\FBX SDK\2017.1\lib\vs2015\x86\release;C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Lib\x86;$(LibraryPath)</LibraryPath>
+    <SourcePath>$(SourcePath)</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -198,6 +201,7 @@
     <ClInclude Include="CpuClass.h" />
     <ClInclude Include="cTile.h" />
     <ClInclude Include="D3dClass.h" />
+    <ClInclude Include="FBXLoader.h" />
     <ClInclude Include="FixedSplitterWnd.h" />
     <ClInclude Include="FontClass.h" />
     <ClInclude Include="FontShaderClass.h" />
@@ -212,11 +216,13 @@
     <ClInclude Include="MapTool2Doc.h" />
     <ClInclude Include="MapTool2View.h" />
     <ClInclude Include="MathHelper.h" />
+    <ClInclude Include="Mesh.h" />
     <ClInclude Include="MiniMapClass.h" />
     <ClInclude Include="MiniMapScene.h" />
     <ClInclude Include="MiniMapView.h" />
     <ClInclude Include="ModelClass.h" />
     <ClInclude Include="MtlTex.h" />
+    <ClInclude Include="Object.h" />
     <ClInclude Include="ObjGroup.h" />
     <ClInclude Include="ObjLoader.h" />
     <ClInclude Include="Page1.h" />
@@ -250,6 +256,7 @@
     <ClCompile Include="CpuClass.cpp" />
     <ClCompile Include="cTile.cpp" />
     <ClCompile Include="D3dClass.cpp" />
+    <ClCompile Include="FBXLoader.cpp" />
     <ClCompile Include="FixedSplitterWnd.cpp" />
     <ClCompile Include="FontClass.cpp" />
     <ClCompile Include="FontShaderClass.cpp" />
@@ -264,11 +271,13 @@
     <ClCompile Include="MapTool2Doc.cpp" />
     <ClCompile Include="MapTool2View.cpp" />
     <ClCompile Include="MathHelper.cpp" />
+    <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="MiniMapClass.cpp" />
     <ClCompile Include="MiniMapScene.cpp" />
     <ClCompile Include="MiniMapView.cpp" />
     <ClCompile Include="ModelClass.cpp" />
     <ClCompile Include="MtlTex.cpp" />
+    <ClCompile Include="Object.cpp" />
     <ClCompile Include="ObjGroup.cpp" />
     <ClCompile Include="ObjLoader.cpp" />
     <ClCompile Include="Page1.cpp" />

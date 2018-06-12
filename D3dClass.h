@@ -1,6 +1,7 @@
 #pragma once
 #include "MapScene.h"
 #include "MiniMapScene.h"
+#include "FBXLoader.h"
 
 class CD3dClass
 {
@@ -27,7 +28,6 @@ public:
 		const float& blue, const float& alpha);
 	void EndPropertyScene();
 
-
 	void TurnZBufferOn();
 	void TurnZBufferOff();
 	void TurnOnAlphaBlending();
@@ -46,14 +46,14 @@ public:
 public:
 	ID3D11Device* GetDevice() const { return m_pDevice; }
 	ID3D11DeviceContext* GetDeviceContext() const { return m_pDeviceContext; }
-	CMapTool2View * GetMainView() const {return m_pMainView;}
+	CMapTool2View * GetMainView() const { return m_pMainView; }
 	CMiniMapView * GetMiniView() const { return m_pMiniMapView; }
 	CProperyView * GetPropertyView() const { return m_pProperyView; }
 	void SetMapSceneLink(MapScene* pMapScene) { m_pMapScene = pMapScene; }
 	MapScene* GetMapScene() { return m_pMapScene; }
 	void SetMiniMapSceneLink(MiniMapScene* pMiniMapScene) { m_pMiniMapScene = pMiniMapScene; }
 	MiniMapScene* GetMiniMapScene() { return m_pMiniMapScene; }
-
+	FBXLoader* GetFBXLoader() { return m_fbxLoader; }
 
 private:
 	void CreateRasterizerStates();
@@ -68,7 +68,7 @@ private:
 	void SetOMMainRenderTarget();
 	void CreateMainViewPort(const CRect mainViewRect);
 
-	void CreateMiniMapSwapChain(CMiniMapView* pMiniMapView, 
+	void CreateMiniMapSwapChain(CMiniMapView* pMiniMapView,
 		IDXGIFactory* pFactory);
 	void CreateMiniRenderTargetView(const CRect ViewRect);
 	void CreateMiniDepthStencilBuffer(const CRect ViewRect);
@@ -80,8 +80,6 @@ private:
 	void CreatePropertyDepthStencilBuffer(const CRect ViewRect);
 	void SetOMPropertyRenderTarget();
 	void CreatePropertyViewPort(const CRect ViewRect);
-
-	
 
 private:
 	UINT m_numerator;
@@ -99,7 +97,7 @@ private:
 	MapScene* m_pMapScene;
 	MiniMapScene* m_pMiniMapScene;
 
-	const bool ENABLE_4X_MSAA = false;	//¸ÖÆ¼ ¼ÀÇÃ¸µ À¯¹«
+	const bool ENABLE_4X_MSAA = false;	//ï¿½ï¿½Æ¼ ï¿½ï¿½ï¿½Ã¸ï¿½ ï¿½ï¿½ï¿½ï¿½
 	bool m_bIsZBufferOn;
 	bool m_bSolid_WireFrame;
 	UINT m_4xMsaaQuality;
@@ -131,9 +129,11 @@ private:
 	ID3D11Texture2D* m_pPropertyDepthStencilBuffer;
 	ID3D11DepthStencilView* m_pPropertyDepthStencilView;
 	D3D11_VIEWPORT m_PropertyScreenViewport;
-	
+
 	ID3D11BlendState* m_alphaEnableBlendingState;
 	ID3D11BlendState* m_alphaDisableBlendingState;
 
 	ID3D11BlendState* m_alphaBlendState2;
+
+	FBXLoader* m_fbxLoader;
 };

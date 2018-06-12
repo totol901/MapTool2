@@ -264,13 +264,13 @@ bool MapScene::Initialize(HINSTANCE hinstance, HWND hwnd)
 		return false;
 	}
 
-	result = m_TestModel->Obj_Initialize(CD3dClass::GetInstance()->GetDevice(),
-		"Building_A01.obj","../MapTool2/obj/");
-	if (!result)
-	{
-		MessageBox(hwnd, L"Could not initialize Building_A01 object.", L"Error", MB_OK);
-		return false;
-	}
+	//result = m_TestModel->Obj_Initialize(CD3dClass::GetInstance()->GetDevice(),
+	//	"Building_A01.obj","../MapTool2/obj/");
+	//if (!result)
+	//{
+	//	MessageBox(hwnd, L"Could not initialize Building_A01 object.", L"Error", MB_OK);
+	//	return false;
+	//}
 
 	return true;
 }

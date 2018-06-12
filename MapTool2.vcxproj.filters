@@ -1,0 +1,468 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="01. FrameView">
+      <UniqueIdentifier>{5f6a9281-054b-4b30-aa8d-b596060182e1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. FrameView\0. MainFrm">
+      <UniqueIdentifier>{551a169f-b765-4d3d-bc4d-ef5c906ebbad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. FrameView\1. View">
+      <UniqueIdentifier>{8ef3b7c4-b5e3-4b94-bf1e-9557d2996d80}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. FrameView\1. View\0. MainView">
+      <UniqueIdentifier>{aeab7961-c07a-47ab-a0f2-74e1d8536ff0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. FrameView\1. View\1. MiniMapView">
+      <UniqueIdentifier>{5cabb3fc-0174-4296-b37b-668bf19eb0ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. FrameView\1. View\2. ControllFormView">
+      <UniqueIdentifier>{0943b402-23b6-46fd-bf12-30b6773411df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. FrameView\1. View\2. ControllFormView\Property">
+      <UniqueIdentifier>{7eaf974b-9c5c-4226-825c-343db292bcbe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. FrameView\1. View\2. ControllFormView\Property\Page1">
+      <UniqueIdentifier>{da096be9-1a60-4c0b-98af-43c1fa46a4d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Manager">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="01. FrameView\0. MainFrm\FixedSplitterWnd">
+      <UniqueIdentifier>{dded367e-b783-4afe-8a34-e1521daa8008}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Resource Files">
+      <UniqueIdentifier>{94864ec5-778a-4631-ae14-b50803f9fd93}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. FrameView\1. View\3. PropertyView">
+      <UniqueIdentifier>{99136354-d1d1-4bf8-bc53-5eeeb8c13cfd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Manager\0. D3D">
+      <UniqueIdentifier>{442c0e2a-e53d-45f3-b057-cea218ccddca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Manager\1. Timer">
+      <UniqueIdentifier>{32f4522d-5268-4b64-a4e3-bf0faabefa24}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. FrameView\0. MainFrm\MapScene">
+      <UniqueIdentifier>{f7a104bf-17b9-4c09-acb7-5d7f3e2bf384}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. FrameView\0. MainFrm\MapScene\Map">
+      <UniqueIdentifier>{5bcfd432-2a2f-4e8d-977a-724b8372645b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. FrameView\0. MainFrm\MapScene\Map\tile">
+      <UniqueIdentifier>{f2710b42-25ed-4c6b-aa01-b9f2fde4149f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. FrameView\0. MainFrm\MapScene\Map\Util">
+      <UniqueIdentifier>{8b418f88-34bf-497d-a1f3-38581be6bc69}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Manager\2. Texture">
+      <UniqueIdentifier>{bf54f170-17ca-454d-927f-ccdbe82139e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{aeda2e03-6f32-42ef-8d14-81e3a3b1a415}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Shader">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="03. Resource Files\ShaderFIles">
+      <UniqueIdentifier>{bedc7ca5-ca19-4e2f-8d3a-83e03f16a446}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Resource Files\ShaderFIles\Light">
+      <UniqueIdentifier>{a735db51-0497-455d-86d2-fc0319b56300}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Manager\3. Camera">
+      <UniqueIdentifier>{a3b541e0-26d3-4519-bed7-22b96d54b5ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05. UI">
+      <UniqueIdentifier>{b914a1bd-d098-4cc7-bbad-131a1b3a65a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05. UI\Text">
+      <UniqueIdentifier>{0e55e391-0680-4d6b-a851-ebaef0a2a6cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05. UI\Text\Font">
+      <UniqueIdentifier>{1f196bdd-c925-4a42-9099-def522ef7e7b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. FrameView\0. MainFrm\MiniMapScene">
+      <UniqueIdentifier>{6a017bc4-dd82-4584-8e1c-4e5ce96d053c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. FrameView\0. MainFrm\MapScene\Map\sky">
+      <UniqueIdentifier>{c0d6d610-3832-42fc-9133-bf00dff9a315}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="MainFrm.h">
+      <Filter>01. FrameView\0. MainFrm</Filter>
+    </ClInclude>
+    <ClInclude Include="MapTool2View.h">
+      <Filter>01. FrameView\1. View\0. MainView</Filter>
+    </ClInclude>
+    <ClInclude Include="MiniMapView.h">
+      <Filter>01. FrameView\1. View\1. MiniMapView</Filter>
+    </ClInclude>
+    <ClInclude Include="ControlView.h">
+      <Filter>01. FrameView\1. View\2. ControllFormView</Filter>
+    </ClInclude>
+    <ClInclude Include="ControlProperty.h">
+      <Filter>01. FrameView\1. View\2. ControllFormView\Property</Filter>
+    </ClInclude>
+    <ClInclude Include="Page1.h">
+      <Filter>01. FrameView\1. View\2. ControllFormView\Property\Page1</Filter>
+    </ClInclude>
+    <ClInclude Include="FixedSplitterWnd.h">
+      <Filter>01. FrameView\0. MainFrm\FixedSplitterWnd</Filter>
+    </ClInclude>
+    <ClInclude Include="ProperyView.h">
+      <Filter>01. FrameView\1. View\3. PropertyView</Filter>
+    </ClInclude>
+    <ClInclude Include="D3dClass.h">
+      <Filter>02. Manager\0. D3D</Filter>
+    </ClInclude>
+    <ClInclude Include="MapScene.h">
+      <Filter>01. FrameView\0. MainFrm\MapScene</Filter>
+    </ClInclude>
+    <ClInclude Include="cMap.h">
+      <Filter>01. FrameView\0. MainFrm\MapScene\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="cTile.h">
+      <Filter>01. FrameView\0. MainFrm\MapScene\Map\tile</Filter>
+    </ClInclude>
+    <ClInclude Include="GeometryGenerator.h">
+      <Filter>01. FrameView\0. MainFrm\MapScene\Map\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="MathHelper.h">
+      <Filter>01. FrameView\0. MainFrm\MapScene\Map\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureManager.h">
+      <Filter>02. Manager\2. Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="DirectLightShader.h">
+      <Filter>04. Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="MapTool2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MapTool2Doc.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FontShaderClass.h">
+      <Filter>04. Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="ColorShaderClass.h">
+      <Filter>04. Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraClass.h">
+      <Filter>02. Manager\3. Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="TextClass.h">
+      <Filter>05. UI\Text</Filter>
+    </ClInclude>
+    <ClInclude Include="FontClass.h">
+      <Filter>05. UI\Text\Font</Filter>
+    </ClInclude>
+    <ClInclude Include="FpsClass.h">
+      <Filter>05. UI</Filter>
+    </ClInclude>
+    <ClInclude Include="TimerClass.h">
+      <Filter>02. Manager\1. Timer</Filter>
+    </ClInclude>
+    <ClInclude Include="CpuClass.h">
+      <Filter>05. UI</Filter>
+    </ClInclude>
+    <ClInclude Include="TerrainClass.h">
+      <Filter>01. FrameView\0. MainFrm\MapScene\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="InputClass.h">
+      <Filter>02. Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="PositionClass.h">
+      <Filter>02. Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="PerlinNoise.h">
+      <Filter>01. FrameView\0. MainFrm\MapScene</Filter>
+    </ClInclude>
+    <ClInclude Include="TerrainShaderClass.h">
+      <Filter>04. Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="LightClass.h">
+      <Filter>02. Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureClass.h">
+      <Filter>02. Manager\2. Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureShaderClass.h">
+      <Filter>04. Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="FrustumClass.h">
+      <Filter>02. Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="BitmapClass.h">
+      <Filter>01. FrameView\0. MainFrm\MiniMapScene</Filter>
+    </ClInclude>
+    <ClInclude Include="MiniMapClass.h">
+      <Filter>01. FrameView\0. MainFrm\MiniMapScene</Filter>
+    </ClInclude>
+    <ClInclude Include="MiniMapScene.h">
+      <Filter>04. Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="SkyDomeShaderClass.h">
+      <Filter>04. Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="SkyPlaneShaderClass.h">
+      <Filter>04. Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="QuadTreeClass.h">
+      <Filter>01. FrameView\0. MainFrm\MapScene</Filter>
+    </ClInclude>
+    <ClInclude Include="SkyDomeClass.h">
+      <Filter>01. FrameView\0. MainFrm\MapScene\Map\sky</Filter>
+    </ClInclude>
+    <ClInclude Include="SkyPlaneClass.h">
+      <Filter>04. Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="MtlTex.h">
+      <Filter>04. Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelClass.h">
+      <Filter>04. Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjLoader.h">
+      <Filter>04. Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjGroup.h">
+      <Filter>04. Shader</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="MapTool2.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MapTool2Doc.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MainFrm.cpp">
+      <Filter>01. FrameView\0. MainFrm</Filter>
+    </ClCompile>
+    <ClCompile Include="MapTool2View.cpp">
+      <Filter>01. FrameView\1. View\0. MainView</Filter>
+    </ClCompile>
+    <ClCompile Include="MiniMapView.cpp">
+      <Filter>01. FrameView\1. View\1. MiniMapView</Filter>
+    </ClCompile>
+    <ClCompile Include="ControlView.cpp">
+      <Filter>01. FrameView\1. View\2. ControllFormView</Filter>
+    </ClCompile>
+    <ClCompile Include="ControlProperty.cpp">
+      <Filter>01. FrameView\1. View\2. ControllFormView\Property</Filter>
+    </ClCompile>
+    <ClCompile Include="Page1.cpp">
+      <Filter>01. FrameView\1. View\2. ControllFormView\Property\Page1</Filter>
+    </ClCompile>
+    <ClCompile Include="FixedSplitterWnd.cpp">
+      <Filter>01. FrameView\0. MainFrm\FixedSplitterWnd</Filter>
+    </ClCompile>
+    <ClCompile Include="ProperyView.cpp">
+      <Filter>01. FrameView\1. View\3. PropertyView</Filter>
+    </ClCompile>
+    <ClCompile Include="D3dClass.cpp">
+      <Filter>02. Manager\0. D3D</Filter>
+    </ClCompile>
+    <ClCompile Include="MapScene.cpp">
+      <Filter>01. FrameView\0. MainFrm\MapScene</Filter>
+    </ClCompile>
+    <ClCompile Include="cMap.cpp">
+      <Filter>01. FrameView\0. MainFrm\MapScene\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="cTile.cpp">
+      <Filter>01. FrameView\0. MainFrm\MapScene\Map\tile</Filter>
+    </ClCompile>
+    <ClCompile Include="GeometryGenerator.cpp">
+      <Filter>01. FrameView\0. MainFrm\MapScene\Map\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="MathHelper.cpp">
+      <Filter>01. FrameView\0. MainFrm\MapScene\Map\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureManager.cpp">
+      <Filter>02. Manager\2. Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="DirectLightShader.cpp">
+      <Filter>04. Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="ColorShaderClass.cpp">
+      <Filter>04. Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraClass.cpp">
+      <Filter>02. Manager\3. Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="TextClass.cpp">
+      <Filter>05. UI\Text</Filter>
+    </ClCompile>
+    <ClCompile Include="FontClass.cpp">
+      <Filter>05. UI\Text\Font</Filter>
+    </ClCompile>
+    <ClCompile Include="FpsClass.cpp">
+      <Filter>05. UI</Filter>
+    </ClCompile>
+    <ClCompile Include="FontShaderClass.cpp">
+      <Filter>04. Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="TimerClass.cpp">
+      <Filter>02. Manager\1. Timer</Filter>
+    </ClCompile>
+    <ClCompile Include="CpuClass.cpp">
+      <Filter>05. UI</Filter>
+    </ClCompile>
+    <ClCompile Include="TerrainClass.cpp">
+      <Filter>01. FrameView\0. MainFrm\MapScene\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="InputClass.cpp">
+      <Filter>02. Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="PositionClass.cpp">
+      <Filter>02. Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="PerlinNoise.cpp">
+      <Filter>01. FrameView\0. MainFrm\MapScene</Filter>
+    </ClCompile>
+    <ClCompile Include="LightClass.cpp">
+      <Filter>02. Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="TerrainShaderClass.cpp">
+      <Filter>04. Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureClass.cpp">
+      <Filter>02. Manager\2. Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureShaderClass.cpp">
+      <Filter>04. Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="FrustumClass.cpp">
+      <Filter>02. Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="BitmapClass.cpp">
+      <Filter>01. FrameView\0. MainFrm\MiniMapScene</Filter>
+    </ClCompile>
+    <ClCompile Include="MiniMapClass.cpp">
+      <Filter>01. FrameView\0. MainFrm\MiniMapScene</Filter>
+    </ClCompile>
+    <ClCompile Include="MiniMapScene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="QuadTreeClass.cpp">
+      <Filter>01. FrameView\0. MainFrm\MapScene</Filter>
+    </ClCompile>
+    <ClCompile Include="SkyDomeClass.cpp">
+      <Filter>01. FrameView\0. MainFrm\MapScene\Map\sky</Filter>
+    </ClCompile>
+    <ClCompile Include="SkyPlaneClass.cpp">
+      <Filter>01. FrameView\0. MainFrm\MapScene\Map\sky</Filter>
+    </ClCompile>
+    <ClCompile Include="SkyDomeShaderClass.cpp">
+      <Filter>04. Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="SkyPlaneShaderClass.cpp">
+      <Filter>04. Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="MtlTex.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ModelClass.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjGroup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\MapTool2.ico">
+      <Filter>03. Resource Files</Filter>
+    </Image>
+    <Image Include="res\MapTool2Doc.ico">
+      <Filter>03. Resource Files</Filter>
+    </Image>
+    <Image Include="res\Toolbar.bmp">
+      <Filter>03. Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="MapTool2.rc">
+      <Filter>03. Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\MapTool2.rc2">
+      <Filter>03. Resource Files</Filter>
+    </None>
+    <None Include="shader\Light.ps">
+      <Filter>03. Resource Files\ShaderFIles\Light</Filter>
+    </None>
+    <None Include="shader\Light.vs">
+      <Filter>03. Resource Files\ShaderFIles\Light</Filter>
+    </None>
+    <None Include="shader\color.ps">
+      <Filter>03. Resource Files\ShaderFIles</Filter>
+    </None>
+    <None Include="shader\color.vs">
+      <Filter>03. Resource Files\ShaderFIles</Filter>
+    </None>
+    <None Include="shader\Font.ps">
+      <Filter>03. Resource Files\ShaderFIles</Filter>
+    </None>
+    <None Include="shader\Font.vs">
+      <Filter>03. Resource Files\ShaderFIles</Filter>
+    </None>
+    <None Include="shader\terrain.vs">
+      <Filter>03. Resource Files\ShaderFIles</Filter>
+    </None>
+    <None Include="shader\terrain.ps">
+      <Filter>03. Resource Files\ShaderFIles</Filter>
+    </None>
+    <None Include="terrainBlend.vs">
+      <Filter>03. Resource Files\ShaderFIles</Filter>
+    </None>
+    <None Include="terrainBlend.ps">
+      <Filter>03. Resource Files\ShaderFIles</Filter>
+    </None>
+    <None Include="skydome.vs">
+      <Filter>03. Resource Files\ShaderFIles</Filter>
+    </None>
+    <None Include="skydome.ps">
+      <Filter>03. Resource Files\ShaderFIles</Filter>
+    </None>
+    <None Include="shader\skyplane.ps">
+      <Filter>03. Resource Files\ShaderFIles</Filter>
+    </None>
+    <None Include="shader\skyplane.vs">
+      <Filter>03. Resource Files\ShaderFIles</Filter>
+    </None>
+    <None Include="shader\texture.ps">
+      <Filter>03. Resource Files\ShaderFIles</Filter>
+    </None>
+    <None Include="shader\texture.vs">
+      <Filter>03. Resource Files\ShaderFIles</Filter>
+    </None>
+  </ItemGroup>
+</Project>
